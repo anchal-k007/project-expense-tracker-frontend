@@ -1,6 +1,15 @@
+import Navigation from "./Components/Navigation/Navigation";
+import ExpenseLayout from "./Components/ExpenseLayout";
+
+import "./App.css";
 
 const App = () => {
-  return <h1> Hello World </h1>
+  return (
+    <>
+      <Navigation />
+      <ExpenseLayout />
+    </>
+  )
 };
 
 export default App;
