@@ -1,5 +1,5 @@
 import Navigation from "./Components/Navigation/Navigation";
-import ExpenseLayout from "./Components/ExpenseLayout";
+import ExpenseLayout from "./Components/ExpenseLayout/ExpenseLayout";
 
 import "./App.css";
 
