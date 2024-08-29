@@ -1,0 +1,18 @@
+.add-expense {
+  width: 100%;
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.add-expense button {
+  background-color: navy;
+  color: white;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
