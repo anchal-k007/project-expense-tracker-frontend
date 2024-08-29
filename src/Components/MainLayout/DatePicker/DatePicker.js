@@ -2,24 +2,39 @@ import { useEffect , useRef } from "react";
 
 import styles from "./DatePicker.module.css";
 
-const DatePicker = () => {
+/**
+ * Converts a JS Date to string accepted by HTML date input.
+ *  
+ * Month in JS is indexed from 0, whereas HTML date input begins from 1.
+ * 
+ * HTML date input has a strict input type of yyyy-MM-dd
+ * @param {Date} today 
+ * @returns {String}
+ */
+function getDateStringFromDate(today) {
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  if(month < 10) {
+    month = "0" + month;
+  }
+  const date = today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
+  const dateString = `${year}-${month}-${date}`;
+  return dateString
+}
+
+const DatePicker = (props) => {
+  const { pickedDate , updatePickedDate } = props;
   const datePickerRef = useRef();
-  // TODO: Set date picker as current date
-  // Problem: With this, changing the date is not working
-  // useEffect(() => {
-  //   const today = new Date();
-  //   const year = today.getFullYear();
-  //   const month = today.getMonth() >= 10 ? today.getMonth() : "0" + today.getMonth();
-  //   const date = today.getDate();
-  //   const dateString = `${year}-${month}-${date}`;
-  //   console.log(dateString);
-  //   datePickerRef.current.value = dateString;
-  // }, []);
+  const dateString = getDateStringFromDate(pickedDate);
+
+  const changePickedDate = (event) => {
+    updatePickedDate(event.target.value);
+  }
 
   return (
     <div className={styles["date-picker"]}>
       <label htmlFor="date-picker">Choose A Date</label>
-      <input type="date" name="date-picker" value={new Date(2024, 7, 1)} ref={datePickerRef}></input>
+      <input type="date" name="date-picker" value={dateString} ref={datePickerRef} onChange={changePickedDate}></input>
     </div>
   );
 };

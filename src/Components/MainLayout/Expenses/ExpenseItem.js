@@ -7,7 +7,6 @@ const ExpenseItem = (props) => {
     day: "numeric",
     year: "numeric"
   });
-  console.log(props);
   return (
     <tr className={styles["expense-item"]} >
       <td>{date}</td>
