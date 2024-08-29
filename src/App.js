@@ -1,5 +1,5 @@
 import Navigation from "./Components/Navigation/Navigation";
-import ExpenseLayout from "./Components/ExpenseLayout/ExpenseLayout";
+import MainLayout from "./Components/MainLayout/MainLayout";
 
 import "./App.css";
 
@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
       <Navigation />
-      <ExpenseLayout />
+      <MainLayout />
     </>
   )
 };

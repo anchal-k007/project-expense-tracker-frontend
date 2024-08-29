@@ -1,15 +1,15 @@
 import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 
-import styles from "./ExpenseLayout.module.css";
+import styles from "./MainLayout.module.css";
 
-const ExpenseLayout = () => {
+const MainLayout = () => {
   return (
-    <div className={styles["expense-layout"]}>
+    <div className={styles["main-layout"]}>
       <DatePicker />
       <Expenses />
     </div>
   );
 };
 
-export default ExpenseLayout;
+export default MainLayout;
