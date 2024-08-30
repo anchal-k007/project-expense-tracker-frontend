@@ -127,10 +127,12 @@ const Expenses = () => {
       <h1>{expenseList.length === 0 ? "No Expenses To Show" : "Expenses"}</h1>
       {expenseList.length !== 0 && 
         <table className={styles["expenses-table"]}>
-          <ExpenseTableHeader />
-          {expenseList.map(expenseItem => {
-            return <ExpenseItem key={expenseItem.id} {...expenseItem} />
-          })}
+          <tbody>
+            <ExpenseTableHeader />
+            {expenseList.map(expenseItem => {
+              return <ExpenseItem key={expenseItem.id} {...expenseItem} />
+            })}
+          </tbody>
         </table>
       }
     </div>
