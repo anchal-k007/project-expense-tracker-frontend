@@ -20,8 +20,8 @@ const MainLayout = () => {
   }
   return (
     <div className={styles["main-layout"]}>
-      <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate}/>
-      <Expenses />
+      <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
+      <Expenses pickedDate={pickedDate} />
       <AddExpense />
     </div>
   );

@@ -119,17 +119,19 @@ const DUMMY_EXPENSES = [
   },
 ];
 
-const Expenses = () => {
+const Expenses = (props) => {
   const [expenseList, setExpenseList] = useState(DUMMY_EXPENSES);
-
+  const displayList = expenseList.filter(expense => {
+    return expense.date.getTime() === props.pickedDate.getTime();
+  });
   return (
     <div className={styles["expense-layout"]}> 
-      <h1>{expenseList.length === 0 ? "No Expenses To Show" : "Expenses"}</h1>
-      {expenseList.length !== 0 && 
+      <h1>{displayList.length === 0 ? "No Expenses To Show" : "Expenses"}</h1>
+      {displayList.length !== 0 && 
         <table className={styles["expenses-table"]}>
           <tbody>
             <ExpenseTableHeader />
-            {expenseList.map(expenseItem => {
+            {displayList.map(expenseItem => {
               return <ExpenseItem key={expenseItem.id} {...expenseItem} />
             })}
           </tbody>
