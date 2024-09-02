@@ -46,12 +46,24 @@ const MainLayout = () => {
     );
   };
 
+  const updateExpenseItem = (updatedItem) => {
+    setExpenseList((prevExpenseList) => {
+      return prevExpenseList.map((expenseItem) => {
+        if (expenseItem.paymentId === updatedItem.paymentId) {
+          expenseItem = { ...updatedItem };
+        }
+        return expenseItem;
+      });
+    });
+  };
+
   return (
     <div className={styles["main-layout"]}>
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses
         displayList={displayList}
         deleteItemFromList={deleteItemFromList}
+        updateExpenseItem={updateExpenseItem}
       />
       <AddExpense
         pickedDate={pickedDate}

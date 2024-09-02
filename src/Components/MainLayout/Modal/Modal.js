@@ -11,7 +11,13 @@ const ModalBackground = ({ handleHideModal, children }) => {
   );
 };
 
-const Modal = ({ handleHideModal , pickedDate , addExpenseItem }) => {
+const Modal = ({
+  handleHideModal,
+  pickedDate,
+  addExpenseItem,
+  expenseItemDetails,
+  updateExpenseItem,
+}) => {
   const modalDomElement = document.getElementById("modal");
   return (
     <>
@@ -24,6 +30,8 @@ const Modal = ({ handleHideModal , pickedDate , addExpenseItem }) => {
           handleOnCancel={handleHideModal}
           pickedDate={pickedDate}
           addExpenseItem={addExpenseItem}
+          expenseItemDetails={expenseItemDetails}
+          updateExpenseItem={updateExpenseItem}
         />,
         modalDomElement
       )}

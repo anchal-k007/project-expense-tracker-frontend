@@ -1,14 +1,26 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
-import { getDateFromDateString , getDateStringFromDate } from "../../../utils/convertDateFormat";
+import {
+  getDateFromDateString,
+  getDateStringFromDate,
+} from "../../../utils/convertDateFormat";
 
-const ExpenseForm = ({ handleOnCancel , pickedDate , addExpenseItem }) => {
+const ExpenseForm = ({
+  handleOnCancel,
+  pickedDate,
+  addExpenseItem,
+  expenseItemDetails,
+  updateExpenseItem,
+}) => {
+  // If the edit button on an expense item is clicked, then the component edits the item
+  // This is handled by the fact that expenseItemDetails will be provided in that case
+  // Else a new item will be added to the list
   const dateString = getDateStringFromDate(pickedDate);
   const [expenseFormData, setExpenseFormData] = useState({
     date: dateString,
-    amount: "",
-    reason: "",
-    paymentMode: "UPI",
+    amount: expenseItemDetails ? expenseItemDetails.amount : "",
+    reason: expenseItemDetails ? expenseItemDetails.reason : "",
+    paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
   });
 
   const handleFormFieldChange = (event) => {
@@ -47,13 +59,20 @@ const ExpenseForm = ({ handleOnCancel , pickedDate , addExpenseItem }) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     expenseFormData.date = getDateFromDateString(expenseFormData.date);
-    addExpenseItem(expenseFormData);
+    if (expenseItemDetails) {
+      updateExpenseItem({
+        ...expenseFormData,
+        paymentId: expenseItemDetails.paymentId,
+      });
+    } else {
+      addExpenseItem(expenseFormData);
+    }
     handleOnCancel();
   };
 
   return (
     <div className={styles["modal-content-container"]}>
-      <h1>Add New Expense</h1>
+      <h1>{expenseItemDetails ? "Update Expense" : "Add New Expense"}</h1>
       <form onSubmit={handleFormSubmit}>
         <div className={styles["form-fields"]}>
           <div className={styles["form-field"]}>
@@ -101,7 +120,7 @@ const ExpenseForm = ({ handleOnCancel , pickedDate , addExpenseItem }) => {
           <button type="reset" onClick={handleOnCancel}>
             Cancel
           </button>
-          <button type="submit">Submit</button>
+          <button type="submit">{expenseItemDetails ? "Update" : "Add"}</button>
         </div>
       </form>
     </div>
