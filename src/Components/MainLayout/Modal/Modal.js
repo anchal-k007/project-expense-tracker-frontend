@@ -3,22 +3,31 @@ import ExpenseForm from "./ExpenseForm";
 
 import styles from "./Modal.module.css";
 
-const ModalBackground = ({handleHideModal , children}) => {
+const ModalBackground = ({ handleHideModal, children }) => {
   return (
     <div className={styles["modal-background"]} onClick={handleHideModal}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-const Modal = ({ handleHideModal }) => {
+const Modal = ({ handleHideModal , pickedDate }) => {
   const modalDomElement = document.getElementById("modal");
   return (
     <>
-      {createPortal(<ModalBackground handleHideModal={handleHideModal}/>, modalDomElement)}
-      {createPortal(<ExpenseForm handleOnCancel={handleHideModal}/>, modalDomElement)}
+      {createPortal(
+        <ModalBackground handleHideModal={handleHideModal} />,
+        modalDomElement
+      )}
+      {createPortal(
+        <ExpenseForm
+          handleOnCancel={handleHideModal}
+          pickedDate={pickedDate}
+        />,
+        modalDomElement
+      )}
     </>
   );
-}
+};
 
 export default Modal;

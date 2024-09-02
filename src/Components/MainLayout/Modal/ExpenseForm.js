@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
+import { getDateFromDateString , getDateStringFromDate } from "../../../utils/convertDateFormat";
 
-const ExpenseForm = ({ handleOnCancel }) => {
+const ExpenseForm = ({ handleOnCancel , pickedDate }) => {
+  const dateString = getDateStringFromDate(pickedDate);
   const [expenseFormData, setExpenseFormData] = useState({
-    date: "",
+    date: dateString,
     amount: "",
     reason: "",
     paymentMode: "UPI",

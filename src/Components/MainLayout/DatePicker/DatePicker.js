@@ -1,26 +1,7 @@
 import { useEffect , useRef } from "react";
 
 import styles from "./DatePicker.module.css";
-
-/**
- * Converts a JS Date to string accepted by HTML date input.
- *  
- * Month in JS is indexed from 0, whereas HTML date input begins from 1.
- * 
- * HTML date input has a strict input type of yyyy-MM-dd
- * @param {Date} today 
- * @returns {String}
- */
-function getDateStringFromDate(today) {
-  const year = today.getFullYear();
-  let month = today.getMonth() + 1;
-  if(month < 10) {
-    month = "0" + month;
-  }
-  const date = today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
-  const dateString = `${year}-${month}-${date}`;
-  return dateString
-}
+import { getDateStringFromDate } from "../../../utils/convertDateFormat";
 
 const DatePicker = (props) => {
   const { pickedDate , updatePickedDate } = props;
