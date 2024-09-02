@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "./../Modal/Modal";
 import styles from "./AddExpense.module.css";
 
-const AddExpense = ({ pickedDate, addExpenseItem }) => {
+const AddExpense = ({ pickedDate, handleAddExpenseItem }) => {
   const [showModal, setShowModal] = useState(false);
   const displayModal = () => {
     setShowModal(true);
@@ -20,7 +20,7 @@ const AddExpense = ({ pickedDate, addExpenseItem }) => {
         <Modal
           handleHideModal={hideModal}
           pickedDate={pickedDate}
-          addExpenseItem={addExpenseItem}
+          handleAddExpenseItem={handleAddExpenseItem}
         />
       )}
     </div>

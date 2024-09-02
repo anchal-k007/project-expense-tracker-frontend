@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ExpenseItem = ({
   expenseItem,
-  deleteItemFromList,
-  updateExpenseItem,
+  handleDeleteItemFromList,
+  handleUpdateExpenseItem,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const displayModal = () => {
@@ -19,7 +19,7 @@ const ExpenseItem = ({
   };
   const { amount, paymentMode, reason, paymentId, date } = expenseItem;
   const deleteItem = () => {
-    deleteItemFromList(paymentId);
+    handleDeleteItemFromList(paymentId);
   };
 
   return (
@@ -43,7 +43,7 @@ const ExpenseItem = ({
           handleHideModal={hideModal}
           pickedDate={date}
           expenseItemDetails={expenseItem}
-          updateExpenseItem={updateExpenseItem}
+          handleUpdateExpenseItem={handleUpdateExpenseItem}
         />
       )}
     </tr>

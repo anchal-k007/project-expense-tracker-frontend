@@ -31,7 +31,7 @@ const MainLayout = () => {
     setPickedDate(getDateFromDateString(newDate));
   };
 
-  const addExpenseItemToList = (newExpenseItem) => {
+  const hanldeAddExpenseItemToList = (newExpenseItem) => {
     newExpenseItem.paymentId = Date.now().toString();
     setExpenseList((prevList) => {
       const newExpenseList = [...prevList];
@@ -40,13 +40,13 @@ const MainLayout = () => {
     });
   };
 
-  const deleteItemFromList = (itemId) => {
+  const handleDeleteItemFromList = (itemId) => {
     setExpenseList(
       expenseList.filter((expenseItem) => expenseItem.paymentId !== itemId)
     );
   };
 
-  const updateExpenseItem = (updatedItem) => {
+  const handleUpdateExpenseItem = (updatedItem) => {
     setExpenseList((prevExpenseList) => {
       return prevExpenseList.map((expenseItem) => {
         if (expenseItem.paymentId === updatedItem.paymentId) {
@@ -62,12 +62,12 @@ const MainLayout = () => {
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses
         displayList={displayList}
-        deleteItemFromList={deleteItemFromList}
-        updateExpenseItem={updateExpenseItem}
+        handleDeleteItemFromList={handleDeleteItemFromList}
+        handleUpdateExpenseItem={handleUpdateExpenseItem}
       />
       <AddExpense
         pickedDate={pickedDate}
-        addExpenseItem={addExpenseItemToList}
+        handleAddExpenseItem={hanldeAddExpenseItemToList}
       />
     </div>
   );

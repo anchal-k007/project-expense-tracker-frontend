@@ -8,9 +8,9 @@ import {
 const ExpenseForm = ({
   handleOnCancel,
   pickedDate,
-  addExpenseItem,
+  handleAddExpenseItem,
   expenseItemDetails,
-  updateExpenseItem,
+  handleUpdateExpenseItem,
 }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
@@ -60,12 +60,12 @@ const ExpenseForm = ({
     event.preventDefault();
     expenseFormData.date = getDateFromDateString(expenseFormData.date);
     if (expenseItemDetails) {
-      updateExpenseItem({
+      handleUpdateExpenseItem({
         ...expenseFormData,
         paymentId: expenseItemDetails.paymentId,
       });
     } else {
-      addExpenseItem(expenseFormData);
+      handleAddExpenseItem(expenseFormData);
     }
     handleOnCancel();
   };
