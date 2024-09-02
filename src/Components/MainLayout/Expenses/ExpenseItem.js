@@ -2,10 +2,10 @@ import styles from "./ExpenseItem.module.css";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ExpenseItem = (props) => {
-  const { amount, paymentMode, reason } = props;
+const ExpenseItem = ({ expenseItem, deleteItemFromList }) => {
+  const { amount, paymentMode, reason, paymentId } = expenseItem;
   const deleteItem = () => {
-    props.deleteItemFromList(props.id);
+    deleteItemFromList(paymentId);
   };
   return (
     <tr className={styles["expense-item"]}>

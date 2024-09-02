@@ -1,46 +1,46 @@
 const DUMMY_EXPENSES = [
   {
-    id: 1,
+    paymentId: 1,
     date: new Date(2024, 7, 29),
     amount: 100,
     paymentMode: "Cash",
-    reason: "Milk"
+    reason: "Milk",
   },
   {
-    id: 2,
+    paymentId: 2,
     date: new Date(2024, 7, 25),
     amount: 150,
     paymentMode: "Cash",
-    reason: "Eggs"
+    reason: "Eggs",
   },
   {
-    id: 3,
+    paymentId: 3,
     date: new Date(2024, 7, 29),
     amount: 249,
     paymentMode: "UPI",
-    reason: "Food"
+    reason: "Food",
   },
   {
-    id: 4,
+    paymentId: 4,
     date: new Date(2024, 7, 25),
     amount: 1000,
     paymentMode: "UPI",
-    reason: "Party"
+    reason: "Party",
   },
   {
-    id: 5,
+    paymentId: 5,
     date: new Date(2024, 7, 25),
     amount: 1000,
     paymentMode: "UPI",
-    reason: "Party"
+    reason: "Party",
   },
   {
-    id: 6,
+    paymentId: 6,
     date: new Date(2024, 7, 25),
     amount: 1000,
     paymentMode: "UPI",
-    reason: "Party"
-  }
+    reason: "Party",
+  },
 ];
 
 export default DUMMY_EXPENSES;

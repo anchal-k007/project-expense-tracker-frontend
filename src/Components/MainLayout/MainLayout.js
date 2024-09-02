@@ -4,7 +4,10 @@ import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 import AddExpense from "./AddExpense/AddExpense";
 import DUMMY_EXPENSES from "./../../utils/dummyExpenses";
-import { getDateFromDateString, getDateStringFromDate } from "../../utils/convertDateFormat";
+import {
+  getDateFromDateString,
+  getDateStringFromDate,
+} from "../../utils/convertDateFormat";
 
 import styles from "./MainLayout.module.css";
 
@@ -15,7 +18,7 @@ const MainLayout = () => {
   const [pickedDate, setPickedDate] = useState(today);
   const [expenseList, setExpenseList] = useState(DUMMY_EXPENSES);
 
-  const displayList = expenseList.filter(expense => {
+  const displayList = expenseList.filter((expense) => {
     return expense.date.getTime() === pickedDate.getTime();
   });
 
@@ -29,23 +32,31 @@ const MainLayout = () => {
   };
 
   const addExpenseItemToList = (newExpenseItem) => {
-    newExpenseItem.id = Date.now().toString();
-    setExpenseList(prevList => {
+    newExpenseItem.paymentId = Date.now().toString();
+    setExpenseList((prevList) => {
       const newExpenseList = [...prevList];
       newExpenseList.push(newExpenseItem);
-      return newExpenseList
+      return newExpenseList;
     });
-  }
+  };
 
   const deleteItemFromList = (itemId) => {
-    setExpenseList(expenseList.filter(expenseItem => expenseItem.id !== itemId));
-  }
+    setExpenseList(
+      expenseList.filter((expenseItem) => expenseItem.paymentId !== itemId)
+    );
+  };
 
   return (
     <div className={styles["main-layout"]}>
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
-      <Expenses displayList={displayList} deleteItemFromList={deleteItemFromList}/>
-      <AddExpense pickedDate={pickedDate} addExpenseItem={addExpenseItemToList} />
+      <Expenses
+        displayList={displayList}
+        deleteItemFromList={deleteItemFromList}
+      />
+      <AddExpense
+        pickedDate={pickedDate}
+        addExpenseItem={addExpenseItemToList}
+      />
     </div>
   );
 };
