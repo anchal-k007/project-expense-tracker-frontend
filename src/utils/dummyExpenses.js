@@ -40,77 +40,7 @@ const DUMMY_EXPENSES = [
     amount: 1000,
     paymentMode: "UPI",
     reason: "Party"
-  },
-  {
-    id: 7,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 8,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 9,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 10,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 11,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 12,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 13,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 14,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 15,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
-  {
-    id: 16,
-    date: new Date(2024, 7, 25),
-    amount: 1000,
-    paymentMode: "UPI",
-    reason: "Party"
-  },
+  }
 ];
 
 export default DUMMY_EXPENSES;

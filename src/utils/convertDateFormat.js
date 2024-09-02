@@ -29,5 +29,7 @@ export function getDateStringFromDate(today) {
  */
 export function getDateFromDateString(date) {
   let [year, month, day] = date.split("-");
-  return new Date(year, month-1, date);
+  month = +month; // convert string to number
+  month -= 1; // adjust difference between date from datePicker and array indexing of months in js
+  return new Date(year, month, day);
 }

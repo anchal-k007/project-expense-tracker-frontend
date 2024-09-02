@@ -4,11 +4,15 @@ import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 import AddExpense from "./AddExpense/AddExpense";
 import DUMMY_EXPENSES from "./../../utils/dummyExpenses";
+import { getDateFromDateString, getDateStringFromDate } from "../../utils/convertDateFormat";
 
 import styles from "./MainLayout.module.css";
 
 const MainLayout = () => {
-  const [pickedDate, setPickedDate] = useState(new Date());
+  // to get today's date at 0000 hours
+  const today = getDateFromDateString(getDateStringFromDate(new Date()));
+
+  const [pickedDate, setPickedDate] = useState(today);
   const [expenseList, setExpenseList] = useState(DUMMY_EXPENSES);
 
   const displayList = expenseList.filter(expense => {
@@ -21,17 +25,23 @@ const MainLayout = () => {
       setPickedDate(new Date());
       return;
     }
-    let [newPickedYear, newPickedMonth, newPickedDate] = newDate.split("-");
-    newPickedMonth = +newPickedMonth; // convert string to number
-    newPickedMonth -= 1; // adjust difference between date from datePicker and array indexing of months in js
-    setPickedDate(new Date(newPickedYear, newPickedMonth, newPickedDate));
+    setPickedDate(getDateFromDateString(newDate));
   };
+
+  const addExpenseItemToList = (newExpenseItem) => {
+    newExpenseItem.id = Date.now().toString();
+    setExpenseList(prevList => {
+      const newExpenseList = [...prevList];
+      newExpenseList.push(newExpenseItem);
+      return newExpenseList
+    });
+  }
 
   return (
     <div className={styles["main-layout"]}>
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses displayList={displayList} />
-      <AddExpense pickedDate={pickedDate} />
+      <AddExpense pickedDate={pickedDate} addExpenseItem={addExpenseItemToList} />
     </div>
   );
 };

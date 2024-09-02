@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./ExpenseForm.module.css";
 import { getDateFromDateString , getDateStringFromDate } from "../../../utils/convertDateFormat";
 
-const ExpenseForm = ({ handleOnCancel , pickedDate }) => {
+const ExpenseForm = ({ handleOnCancel , pickedDate , addExpenseItem }) => {
   const dateString = getDateStringFromDate(pickedDate);
   const [expenseFormData, setExpenseFormData] = useState({
     date: dateString,
@@ -46,7 +46,8 @@ const ExpenseForm = ({ handleOnCancel , pickedDate }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(expenseFormData);
+    expenseFormData.date = getDateFromDateString(expenseFormData.date);
+    addExpenseItem(expenseFormData);
     handleOnCancel();
   };
 
