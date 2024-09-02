@@ -37,10 +37,14 @@ const MainLayout = () => {
     });
   }
 
+  const deleteItemFromList = (itemId) => {
+    setExpenseList(expenseList.filter(expenseItem => expenseItem.id !== itemId));
+  }
+
   return (
     <div className={styles["main-layout"]}>
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
-      <Expenses displayList={displayList} />
+      <Expenses displayList={displayList} deleteItemFromList={deleteItemFromList}/>
       <AddExpense pickedDate={pickedDate} addExpenseItem={addExpenseItemToList} />
     </div>
   );

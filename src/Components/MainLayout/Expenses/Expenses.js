@@ -2,7 +2,7 @@ import styles from "./Expenses.module.css";
 import ExpenseItem from "./ExpenseItem";
 import ExpenseTableHeader from "./ExpenseTableHeader";
 
-const Expenses = ({ displayList }) => {
+const Expenses = ({ displayList , deleteItemFromList }) => {
   return (
     <div className={styles["expense-layout"]}> 
       <h1>{displayList.length === 0 ? "No Expenses To Show" : "Expenses"}</h1>
@@ -11,7 +11,7 @@ const Expenses = ({ displayList }) => {
           <tbody>
             <ExpenseTableHeader />
             {displayList.map(expenseItem => {
-              return <ExpenseItem key={expenseItem.id} {...expenseItem} />
+              return <ExpenseItem key={expenseItem.id} {...expenseItem} deleteItemFromList={deleteItemFromList}/>
             })}
           </tbody>
         </table>
