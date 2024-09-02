@@ -1,0 +1,92 @@
+.modal-content-container {
+  background-color: white;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  z-index: 10;
+}
+
+.modal-content-container h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.modal-content-container form {
+  margin: 1rem 0;
+}
+
+.form-fields {
+  border: 0.25rem navy solid;
+  border-radius: 1rem;
+}
+
+.form-field {
+  height: max-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.form-field label {
+  width: 40%;
+  box-sizing: border-box;
+  overflow-wrap: normal;
+  background-color: navy;
+  color: white;
+  padding: 0.5rem 0.25rem;
+  font-size: 1.25rem;
+}
+
+.form-field input,
+.form-field select {
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  width: 55%;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  border-bottom: 3px solid rgb(242, 242, 242);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  background-color: rgb(242, 242, 242);
+  border-bottom: 3px solid black;
+}
+
+.form-buttons {
+  text-align: right;
+  margin: 1rem 0;
+}
+
+.form-buttons button[type="reset"] {
+  font-size: 1.25rem;
+  background-color: white;
+  border: none;
+  color: navy;
+  font-weight: bold;
+}
+
+.form-buttons button[type="reset"]:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.form-buttons button[type="submit"] {
+  font-size: 1.25rem;
+  background-color: navy;
+  border: none;
+  color: white;
+  margin-left: 0.5rem;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.form-buttons button[type="submit"] {
+  cursor: pointer;
+}
