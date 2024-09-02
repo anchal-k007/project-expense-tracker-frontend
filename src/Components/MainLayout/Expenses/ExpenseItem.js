@@ -4,14 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ExpenseItem = (props) => {
   const { amount , paymentMode , reason } = props;
-  const date = props.date.toLocaleDateString("en-in", {
-    month: "long",
-    day: "numeric",
-    year: "numeric"
-  });
   return (
     <tr className={styles["expense-item"]} >
-      <td>{date}</td>
       <td>{amount}</td>
       <td>{paymentMode}</td>
       <td>{reason}</td>
