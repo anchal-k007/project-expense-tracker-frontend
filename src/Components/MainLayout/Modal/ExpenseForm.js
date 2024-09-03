@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState , useReducer } from "react";
 import styles from "./ExpenseForm.module.css";
 import {
   getDateFromDateString,
   getDateStringFromDate,
 } from "../../../utils/convertDateFormat";
 import CONSTANTS from "./../../../utils/constants";
+
+const expenseFormReducerFn = (expenseFormdata, action) => {
+  const {fieldName , value} = action;
+  return {
+    ...expenseFormdata,
+    [fieldName]: value,
+  }
+}
 
 const ExpenseForm = ({
   handleOnCancel,
@@ -18,7 +26,7 @@ const ExpenseForm = ({
   // This is handled by the fact that expenseItemDetails will be provided in that case
   // Else a new item will be added to the list
   const dateString = getDateStringFromDate(pickedDate);
-  const [expenseFormData, setExpenseFormData] = useState({
+  const [expenseFormData, expenseFormDispatchFn] = useReducer(expenseFormReducerFn, {
     date: dateString,
     amount: expenseItemDetails ? expenseItemDetails.amount : "",
     reason: expenseItemDetails ? expenseItemDetails.reason : "",
@@ -27,36 +35,10 @@ const ExpenseForm = ({
   const [formError, setFormError] = useState(null);
 
   const handleFormFieldChange = (event) => {
-    const value = event.target.value;
-    if (event.target.name === "date") {
-      setExpenseFormData((prevExpenseFormData) => {
-        return {
-          ...prevExpenseFormData,
-          date: value,
-        };
-      });
-    } else if (event.target.name === "amount") {
-      setExpenseFormData((prevExpenseFormData) => {
-        return {
-          ...prevExpenseFormData,
-          amount: +value,
-        };
-      });
-    } else if (event.target.name === "paymentMode") {
-      setExpenseFormData((prevExpenseFormData) => {
-        return {
-          ...prevExpenseFormData,
-          paymentMode: value,
-        };
-      });
-    } else if (event.target.name === "reason") {
-      setExpenseFormData((prevExpenseFormData) => {
-        return {
-          ...prevExpenseFormData,
-          reason: value,
-        };
-      });
-    }
+    expenseFormDispatchFn({
+      fieldName: event.target.name,
+      value: event.target.value,
+    });
   };
 
   const checkErrorsInForm = (formData) => {
