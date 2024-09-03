@@ -1,7 +1,7 @@
 .date-picker {
   text-align: center;
   padding: 0;
-  margin: 0 auto;
+  margin: 1rem auto;
   border: 0.35rem navy solid;
   border-radius: 1rem;
   display: flex;

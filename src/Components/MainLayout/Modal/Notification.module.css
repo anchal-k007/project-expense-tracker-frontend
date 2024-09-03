@@ -1,0 +1,33 @@
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; 
+  top: 0;
+  left: 0; 
+  right: 0; 
+  margin-inline: auto; 
+  width: fit-content;
+}
+
+.notification h1 {
+  max-width: 400px;
+  color: white;
+  font-weight: 400;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  width: fit-content;
+  box-shadow: 2px 2px 5px rgb(159, 159, 159), -2px -2px 5px rgb(159, 159, 159);
+}
+
+.notification--error {
+  background-color: red;
+  border: 1px solid red;
+}
+
+.notification--success {
+  background-color: navy;
+  border: 1px solid navy;
+}

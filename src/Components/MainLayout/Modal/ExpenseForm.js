@@ -4,6 +4,7 @@ import {
   getDateFromDateString,
   getDateStringFromDate,
 } from "../../../utils/convertDateFormat";
+import CONSTANTS from "./../../../utils/constants";
 
 const ExpenseForm = ({
   handleOnCancel,
@@ -11,6 +12,7 @@ const ExpenseForm = ({
   handleAddExpenseItem,
   expenseItemDetails,
   handleUpdateExpenseItem,
+  handleNotification,
 }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
@@ -59,19 +61,19 @@ const ExpenseForm = ({
 
   const checkErrorsInForm = (formData) => {
     // Check date
-    if(!formData.date) {
-      return "Please choose a date"
-    } else if(!formData.amount || formData.amount === "0") {
+    if (!formData.date) {
+      return "Please choose a date";
+    } else if (!formData.amount || formData.amount === "0") {
       return "Please enter an amount";
-    } 
+    }
     // no errors found
     return false;
-  }
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const errorPresentInForm = checkErrorsInForm(expenseFormData);
-    if(errorPresentInForm) {
+    if (errorPresentInForm) {
       setFormError(errorPresentInForm);
       return;
     }
@@ -86,6 +88,11 @@ const ExpenseForm = ({
       handleAddExpenseItem(expenseFormData);
     }
     handleOnCancel();
+    handleNotification(
+      CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+      "Successfully added the expense",
+      CONSTANTS.NOTIFICATION_TIME_SUCCESS
+    );
   };
 
   return (
@@ -134,11 +141,7 @@ const ExpenseForm = ({
             />
           </div>
         </div>
-        {formError && 
-          <div className={styles["form-error"]} >
-            {formError}
-          </div>
-        }
+        {formError && <div className={styles["form-error"]}>{formError}</div>}
         <div className={styles["form-buttons"]}>
           <button type="reset" onClick={handleOnCancel}>
             Cancel

@@ -1,6 +1,6 @@
-import styles from "./Expenses.module.css";
 import ExpenseItem from "./ExpenseItem";
 import ExpenseTableHeader from "./ExpenseTableHeader";
+import styles from "./Expenses.module.css";
 
 const Expenses = ({
   displayList,

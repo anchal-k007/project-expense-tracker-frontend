@@ -3,6 +3,7 @@ import { useState } from "react";
 import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 import AddExpense from "./AddExpense/AddExpense";
+import Notification from "./Modal/Notification";
 import DUMMY_EXPENSES from "./../../utils/dummyExpenses";
 import {
   getDateFromDateString,
@@ -17,6 +18,24 @@ const MainLayout = () => {
 
   const [pickedDate, setPickedDate] = useState(today);
   const [expenseList, setExpenseList] = useState(DUMMY_EXPENSES);
+  const [notification, setNotification] = useState({
+    showNotification: false,
+    status: "",
+    message: "",
+  });
+
+  const handleNotification = (status, message, timeInSeconds = 1.5) => {
+    setNotification({
+      showNotification: true,
+      status,
+      message,
+    });
+    setTimeout(() => {
+      setNotification({
+        showNotification: false,
+      });
+    }, timeInSeconds * 1000);
+  };
 
   const displayList = expenseList.filter((expense) => {
     return expense.date.getTime() === pickedDate.getTime();
@@ -59,6 +78,9 @@ const MainLayout = () => {
 
   return (
     <div className={styles["main-layout"]}>
+      {notification.showNotification && (
+        <Notification notification={notification} />
+      )}
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses
         displayList={displayList}
@@ -68,6 +90,7 @@ const MainLayout = () => {
       <AddExpense
         pickedDate={pickedDate}
         handleAddExpenseItem={hanldeAddExpenseItemToList}
+        handleNotification={handleNotification}
       />
     </div>
   );
