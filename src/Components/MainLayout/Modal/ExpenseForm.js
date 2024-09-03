@@ -88,9 +88,10 @@ const ExpenseForm = ({
       handleAddExpenseItem(expenseFormData);
     }
     handleOnCancel();
+    const notificationMessage = `${expenseItemDetails ? "Updated" : "Added"} expense`
     handleNotification(
       CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
-      "Successfully added the expense",
+      notificationMessage,
       CONSTANTS.NOTIFICATION_TIME_SUCCESS
     );
   };

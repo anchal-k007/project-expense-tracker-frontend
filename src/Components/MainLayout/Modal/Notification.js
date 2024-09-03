@@ -1,5 +1,5 @@
-import styles from "./Notification.module.css";
 import CONSTANTS from "../../../utils/constants";
+import styles from "./Notification.module.css";
 
 const Notification = ({ notification }) => {
   return (

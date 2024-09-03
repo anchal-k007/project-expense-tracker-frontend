@@ -86,6 +86,7 @@ const MainLayout = () => {
         displayList={displayList}
         handleDeleteItemFromList={handleDeleteItemFromList}
         handleUpdateExpenseItem={handleUpdateExpenseItem}
+        handleNotification={handleNotification}
       />
       <AddExpense
         pickedDate={pickedDate}

@@ -4,11 +4,13 @@ import Modal from "../Modal/Modal";
 import styles from "./ExpenseItem.module.css";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CONSTANTS from "../../../utils/constants";
 
 const ExpenseItem = ({
   expenseItem,
   handleDeleteItemFromList,
   handleUpdateExpenseItem,
+  handleNotification,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const displayModal = () => {
@@ -20,6 +22,11 @@ const ExpenseItem = ({
   const { amount, paymentMode, reason, paymentId, date } = expenseItem;
   const deleteItem = () => {
     handleDeleteItemFromList(paymentId);
+    handleNotification(
+      CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+      "Deleted Expense",
+      CONSTANTS.NOTIFICATION_TIME_SUCCESS
+    );
   };
 
   return (
@@ -44,6 +51,7 @@ const ExpenseItem = ({
           pickedDate={date}
           expenseItemDetails={expenseItem}
           handleUpdateExpenseItem={handleUpdateExpenseItem}
+          handleNotification={handleNotification}
         />
       )}
     </tr>
