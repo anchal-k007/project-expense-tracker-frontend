@@ -90,3 +90,12 @@
 .form-buttons button[type="submit"] {
   cursor: pointer;
 }
+
+.form-error {
+  background-color: red;
+  border: 1px solid red;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  color: white;
+}

@@ -22,6 +22,7 @@ const ExpenseForm = ({
     reason: expenseItemDetails ? expenseItemDetails.reason : "",
     paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
   });
+  const [formError, setFormError] = useState(null);
 
   const handleFormFieldChange = (event) => {
     const value = event.target.value;
@@ -56,8 +57,25 @@ const ExpenseForm = ({
     }
   };
 
+  const checkErrorsInForm = (formData) => {
+    // Check date
+    if(!formData.date) {
+      return "Please choose a date"
+    } else if(!formData.amount || formData.amount === "0") {
+      return "Please enter an amount";
+    } 
+    // no errors found
+    return false;
+  }
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    const errorPresentInForm = checkErrorsInForm(expenseFormData);
+    if(errorPresentInForm) {
+      setFormError(errorPresentInForm);
+      return;
+    }
+    setFormError(false);
     expenseFormData.date = getDateFromDateString(expenseFormData.date);
     if (expenseItemDetails) {
       handleUpdateExpenseItem({
@@ -116,6 +134,11 @@ const ExpenseForm = ({
             />
           </div>
         </div>
+        {formError && 
+          <div className={styles["form-error"]} >
+            {formError}
+          </div>
+        }
         <div className={styles["form-buttons"]}>
           <button type="reset" onClick={handleOnCancel}>
             Cancel
