@@ -49,6 +49,8 @@ const ExpenseForm = ({
       return "Please choose a date";
     } else if (!formData.amount || formData.amount === "0") {
       return "Please enter an amount";
+    } else if ( +formData.amount < 0) {
+      return "Amount cannot be negative"
     }
     // no errors found
     return false;
@@ -102,6 +104,7 @@ const ExpenseForm = ({
               onChange={handleFormFieldChange}
               value={expenseFormData.amount}
               placeholder="Amount In Rupees"
+              min="0"
             />
           </div>
           <div className={styles["form-field"]}>
