@@ -14,9 +14,7 @@ const ModalBackground = ({ handleHideModal, children }) => {
 const Modal = ({
   handleHideModal,
   pickedDate,
-  handleAddExpenseItem,
   expenseItemDetails,
-  handleUpdateExpenseItem,
 }) => {
   const modalDomElement = document.getElementById("modal");
   return (
@@ -29,9 +27,7 @@ const Modal = ({
         <ExpenseForm
           handleOnCancel={handleHideModal}
           pickedDate={pickedDate}
-          handleAddExpenseItem={handleAddExpenseItem}
           expenseItemDetails={expenseItemDetails}
-          handleUpdateExpenseItem={handleUpdateExpenseItem}
         />,
         modalDomElement
       )}

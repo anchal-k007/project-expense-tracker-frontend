@@ -1,11 +1,10 @@
-import { useState , useContext } from "react";
+import { useState } from "react";
 
 import Modal from "./../Modal/Modal";
 import styles from "./AddExpense.module.css";
 
 const AddExpense = ({
   pickedDate,
-  handleAddExpenseItem,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const displayModal = () => {
@@ -23,7 +22,6 @@ const AddExpense = ({
         <Modal
           handleHideModal={hideModal}
           pickedDate={pickedDate}
-          handleAddExpenseItem={handleAddExpenseItem}
         />
       )}
     </div>

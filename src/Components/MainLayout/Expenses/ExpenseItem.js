@@ -1,28 +1,29 @@
-import { useState , useContext } from "react";
+import { useState, useContext } from "react";
 import Modal from "../Modal/Modal";
 import notificationContext from "../../../store/notification_context";
+import expensesContext from "../../../store/expenses_context";
 
 import styles from "./ExpenseItem.module.css";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CONSTANTS from "../../../utils/constants";
 
-const ExpenseItem = ({
-  expenseItem,
-  handleDeleteItemFromList,
-  handleUpdateExpenseItem,
-}) => {
+const ExpenseItem = ({ expenseItem }) => {
+  const { amount, paymentMode, reason, paymentId, date } = expenseItem;
+  const { handleDeleteExpenseItem } =
+    useContext(expensesContext);
   const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);
+
   const displayModal = () => {
     setShowModal(true);
   };
   const hideModal = () => {
     setShowModal(false);
   };
-  const { amount, paymentMode, reason, paymentId, date } = expenseItem;
+
   const deleteItem = () => {
-    handleDeleteItemFromList(paymentId);
+    handleDeleteExpenseItem(paymentId);
     handleNotification(
       CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
       "Deleted Expense",
@@ -51,7 +52,6 @@ const ExpenseItem = ({
           handleHideModal={hideModal}
           pickedDate={date}
           expenseItemDetails={expenseItem}
-          handleUpdateExpenseItem={handleUpdateExpenseItem}
         />
       )}
     </tr>

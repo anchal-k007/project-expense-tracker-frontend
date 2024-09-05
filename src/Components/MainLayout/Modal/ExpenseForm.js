@@ -6,6 +6,7 @@ import {
   getDateStringFromDate,
 } from "../../../utils/convertDateFormat";
 import CONSTANTS from "./../../../utils/constants";
+import expensesContext from "../../../store/expenses_context";
 
 const expenseFormReducerFn = (expenseFormdata, action) => {
   const {fieldName , value} = action;
@@ -18,9 +19,7 @@ const expenseFormReducerFn = (expenseFormdata, action) => {
 const ExpenseForm = ({
   handleOnCancel,
   pickedDate,
-  handleAddExpenseItem,
   expenseItemDetails,
-  handleUpdateExpenseItem,
 }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
@@ -35,6 +34,7 @@ const ExpenseForm = ({
   const [formError, setFormError] = useState(null);
 
   const {handleNotification} = useContext(notificationContext);
+  const { handleAddExpenseItem , handleUpdateExpenseItem } = useContext(expensesContext);
 
   const handleFormFieldChange = (event) => {
     expenseFormDispatchFn({
@@ -44,7 +44,6 @@ const ExpenseForm = ({
   };
 
   const checkErrorsInForm = (formData) => {
-    // Check date
     if (!formData.date) {
       return "Please choose a date";
     } else if (!formData.amount || formData.amount === "0") {
