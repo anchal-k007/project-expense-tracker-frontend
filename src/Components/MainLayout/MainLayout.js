@@ -20,7 +20,7 @@ const MainLayout = () => {
   const [pickedDate, setPickedDate] = useState(today);
   const { showNotification } = useContext(notificationContext);
 
-  const displayList = useContext(expensesContext).getDisplayList(today);
+  const displayList = useContext(expensesContext).getDisplayList(pickedDate);
 
   const updatePickedDate = (newDate) => {
     // Edge case when user selects clear option
@@ -35,7 +35,7 @@ const MainLayout = () => {
     <div className={styles["main-layout"]}>
       {showNotification && <Notification />}
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
-      <Expenses displayList={displayList}/>
+      <Expenses displayList={displayList} />
       <AddExpense pickedDate={pickedDate} />
     </div>
   );
