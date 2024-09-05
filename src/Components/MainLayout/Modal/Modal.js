@@ -17,7 +17,6 @@ const Modal = ({
   handleAddExpenseItem,
   expenseItemDetails,
   handleUpdateExpenseItem,
-  handleNotification,
 }) => {
   const modalDomElement = document.getElementById("modal");
   return (
@@ -33,7 +32,6 @@ const Modal = ({
           handleAddExpenseItem={handleAddExpenseItem}
           expenseItemDetails={expenseItemDetails}
           handleUpdateExpenseItem={handleUpdateExpenseItem}
-          handleNotification={handleNotification}
         />,
         modalDomElement
       )}

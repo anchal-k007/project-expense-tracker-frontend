@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 import Modal from "../Modal/Modal";
+import notificationContext from "../../../store/notification_context";
 
 import styles from "./ExpenseItem.module.css";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +11,8 @@ const ExpenseItem = ({
   expenseItem,
   handleDeleteItemFromList,
   handleUpdateExpenseItem,
-  handleNotification,
 }) => {
+  const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);
   const displayModal = () => {
     setShowModal(true);
@@ -51,7 +52,6 @@ const ExpenseItem = ({
           pickedDate={date}
           expenseItemDetails={expenseItem}
           handleUpdateExpenseItem={handleUpdateExpenseItem}
-          handleNotification={handleNotification}
         />
       )}
     </tr>

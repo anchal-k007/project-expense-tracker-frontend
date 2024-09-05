@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import notificationContext from "../../../store/notification_context";
 import CONSTANTS from "../../../utils/constants";
 import styles from "./Notification.module.css";
 
-const Notification = ({ notification }) => {
+const Notification = () => {
+  const notification = useContext(notificationContext);
   return (
     <div className={styles["notification"]}>
       <h1

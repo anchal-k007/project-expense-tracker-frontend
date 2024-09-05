@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 
 import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
@@ -9,6 +9,7 @@ import {
   getDateFromDateString,
   getDateStringFromDate,
 } from "../../utils/convertDateFormat";
+import notificationContext from "../../store/notification_context";
 
 import styles from "./MainLayout.module.css";
 
@@ -18,24 +19,7 @@ const MainLayout = () => {
 
   const [pickedDate, setPickedDate] = useState(today);
   const [expenseList, setExpenseList] = useState(DUMMY_EXPENSES);
-  const [notification, setNotification] = useState({
-    showNotification: false,
-    status: "",
-    message: "",
-  });
-
-  const handleNotification = (status, message, timeInSeconds = 1.5) => {
-    setNotification({
-      showNotification: true,
-      status,
-      message,
-    });
-    setTimeout(() => {
-      setNotification({
-        showNotification: false,
-      });
-    }, timeInSeconds * 1000);
-  };
+  const {showNotification} = useContext(notificationContext);
 
   const displayList = expenseList.filter((expense) => {
     return expense.date.getTime() === pickedDate.getTime();
@@ -76,23 +60,22 @@ const MainLayout = () => {
     });
   };
 
+
   return (
     <div className={styles["main-layout"]}>
-      {notification.showNotification && (
-        <Notification notification={notification} />
+      {showNotification && (
+        <Notification />
       )}
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses
         displayList={displayList}
         handleDeleteItemFromList={handleDeleteItemFromList}
         handleUpdateExpenseItem={handleUpdateExpenseItem}
-        handleNotification={handleNotification}
-      />
+        />
       <AddExpense
         pickedDate={pickedDate}
         handleAddExpenseItem={hanldeAddExpenseItemToList}
-        handleNotification={handleNotification}
-      />
+        />
     </div>
   );
 };

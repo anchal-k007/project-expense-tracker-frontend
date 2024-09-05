@@ -1,4 +1,5 @@
-import { useState , useReducer } from "react";
+import { useState , useReducer , useContext } from "react";
+import notificationContext from "../../../store/notification_context";
 import styles from "./ExpenseForm.module.css";
 import {
   getDateFromDateString,
@@ -20,7 +21,6 @@ const ExpenseForm = ({
   handleAddExpenseItem,
   expenseItemDetails,
   handleUpdateExpenseItem,
-  handleNotification,
 }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
@@ -33,6 +33,8 @@ const ExpenseForm = ({
     paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
   });
   const [formError, setFormError] = useState(null);
+
+  const {handleNotification} = useContext(notificationContext);
 
   const handleFormFieldChange = (event) => {
     expenseFormDispatchFn({

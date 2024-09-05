@@ -6,7 +6,6 @@ const Expenses = ({
   displayList,
   handleDeleteItemFromList,
   handleUpdateExpenseItem,
-  handleNotification,
 }) => {
   return (
     <div className={styles["expense-layout"]}>
@@ -22,7 +21,6 @@ const Expenses = ({
                   expenseItem={expenseItem}
                   handleDeleteItemFromList={handleDeleteItemFromList}
                   handleUpdateExpenseItem={handleUpdateExpenseItem}
-                  handleNotification={handleNotification}
                 />
               );
             })}
