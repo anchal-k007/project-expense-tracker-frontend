@@ -19,3 +19,12 @@ const App = () => {
 };
 
 export default App;
+
+
+/**
+ * TODO: 
+ * 1. Prepare a login page
+ * 2. Add authentication
+ * 3. Create the analysis page
+ * @returns 
+ */ 
