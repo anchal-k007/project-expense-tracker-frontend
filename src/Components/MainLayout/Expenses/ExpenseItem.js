@@ -9,9 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CONSTANTS from "../../../utils/constants";
 
 const ExpenseItem = ({ expenseItem }) => {
-  const { amount, paymentMode, reason, paymentId, date } = expenseItem;
-  const { handleDeleteExpenseItem } =
-    useContext(expensesContext);
+  const { amount, paymentMode, reason, expenseId, date } = expenseItem;
+  const { handleDeleteExpenseItem } = useContext(expensesContext);
   const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);
 
@@ -23,7 +22,7 @@ const ExpenseItem = ({ expenseItem }) => {
   };
 
   const deleteItem = () => {
-    handleDeleteExpenseItem(paymentId);
+    handleDeleteExpenseItem(expenseId);
     handleNotification(
       CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
       "Deleted Expense",

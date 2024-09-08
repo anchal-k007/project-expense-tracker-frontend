@@ -1,4 +1,4 @@
-import { useState , useReducer , useContext } from "react";
+import { useState, useReducer, useContext } from "react";
 import notificationContext from "../../../store/notification_context";
 import styles from "./ExpenseForm.module.css";
 import {
@@ -9,32 +9,32 @@ import CONSTANTS from "./../../../utils/constants";
 import expensesContext from "../../../store/expenses_context";
 
 const expenseFormReducerFn = (expenseFormdata, action) => {
-  const {fieldName , value} = action;
+  const { fieldName, value } = action;
   return {
     ...expenseFormdata,
     [fieldName]: value,
-  }
-}
+  };
+};
 
-const ExpenseForm = ({
-  handleOnCancel,
-  pickedDate,
-  expenseItemDetails,
-}) => {
+const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
   // Else a new item will be added to the list
   const dateString = getDateStringFromDate(pickedDate);
-  const [expenseFormData, expenseFormDispatchFn] = useReducer(expenseFormReducerFn, {
-    date: dateString,
-    amount: expenseItemDetails ? expenseItemDetails.amount : "",
-    reason: expenseItemDetails ? expenseItemDetails.reason : "",
-    paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
-  });
+  const [expenseFormData, expenseFormDispatchFn] = useReducer(
+    expenseFormReducerFn,
+    {
+      date: dateString,
+      amount: expenseItemDetails ? expenseItemDetails.amount : "",
+      reason: expenseItemDetails ? expenseItemDetails.reason : "",
+      paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
+    }
+  );
   const [formError, setFormError] = useState(null);
 
-  const {handleNotification} = useContext(notificationContext);
-  const { handleAddExpenseItem , handleUpdateExpenseItem } = useContext(expensesContext);
+  const { handleNotification } = useContext(notificationContext);
+  const { handleAddExpenseItem, handleUpdateExpenseItem } =
+    useContext(expensesContext);
 
   const handleFormFieldChange = (event) => {
     expenseFormDispatchFn({
@@ -48,8 +48,8 @@ const ExpenseForm = ({
       return "Please choose a date";
     } else if (!formData.amount || formData.amount === "0") {
       return "Please enter an amount";
-    } else if ( +formData.amount < 0) {
-      return "Amount cannot be negative"
+    } else if (+formData.amount < 0) {
+      return "Amount cannot be negative";
     }
     // no errors found
     return false;
@@ -67,13 +67,15 @@ const ExpenseForm = ({
     if (expenseItemDetails) {
       handleUpdateExpenseItem({
         ...expenseFormData,
-        paymentId: expenseItemDetails.paymentId,
+        expenseId: expenseItemDetails.expenseId,
       });
     } else {
       handleAddExpenseItem(expenseFormData);
     }
     handleOnCancel();
-    const notificationMessage = `${expenseItemDetails ? "Updated" : "Added"} expense`
+    const notificationMessage = `${
+      expenseItemDetails ? "Updated" : "Added"
+    } expense`;
     handleNotification(
       CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
       notificationMessage,

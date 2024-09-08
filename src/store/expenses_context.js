@@ -5,7 +5,7 @@ import DUMMY_EXPENSES from "../utils/dummyExpenses";
 const expensesContext = createContext({
   expensesList: [
     {
-      paymentId: "",
+      expenseId: "",
       date: new Date(),
       amount: 0,
       paymentMode: "",
@@ -28,7 +28,7 @@ const ExpensesContextProvider = (props) => {
   };
 
   const handleAddExpenseItem = (newExpenseItem) => {
-    newExpenseItem.paymentId = Date.now().toString();
+    newExpenseItem.expenseId = Date.now().toString();
     setExpensesList((prevList) => {
       const newExpensesList = [...prevList];
       newExpensesList.push(newExpenseItem);
@@ -38,14 +38,14 @@ const ExpensesContextProvider = (props) => {
 
   const handleDeleteExpenseItem = (itemId) => {
     setExpensesList((prevExpensesList) =>
-      prevExpensesList.filter((expenseItem) => expenseItem.paymentId !== itemId)
+      prevExpensesList.filter((expenseItem) => expenseItem.expenseId !== itemId)
     );
   };
 
   const handleUpdateExpenseItem = (updatedItem) => {
     setExpensesList((prevExpensesList) => {
       return prevExpensesList.map((expenseItem) => {
-        if (expenseItem.paymentId === updatedItem.paymentId) {
+        if (expenseItem.expenseId === updatedItem.expenseId) {
           expenseItem = { ...updatedItem };
         }
         return expenseItem;

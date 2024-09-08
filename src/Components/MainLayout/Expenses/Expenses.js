@@ -13,7 +13,7 @@ const Expenses = ({ displayList }) => {
             {displayList.map((expenseItem) => {
               return (
                 <ExpenseItem
-                  key={expenseItem.paymentId}
+                  key={expenseItem.expenseId}
                   expenseItem={expenseItem}
                 />
               );
