@@ -1,0 +1,43 @@
+.form-layout {
+  padding: 0 4rem;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-box {
+  box-sizing: border-box;
+  margin-top: 2rem;
+  border: 0.3rem solid navy;
+  border-radius: 1rem;
+  background-color: navy;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-selection-box {
+  border-bottom: 0.5rem solid navy;
+}
+
+.form-selection-box button {
+  width: 50%;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border: none;
+  background-color: white;
+  color: navy;
+  padding: 1rem 0;
+  /* outer-radius = inner-radius + distance between radius (includes padding, border-weight, margin)*/
+  border-radius: 0.7rem;    
+}
+
+.form-selection-box button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.form-selection-box .active {
+  color: white;
+  background-color: navy;
+  font-weight: bold;
+}
