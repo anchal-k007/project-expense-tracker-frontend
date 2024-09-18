@@ -36,7 +36,7 @@ export default App;
 
 /**
  * TODO:
- * 1. Prepare a login page
+ * 1. Prepare a login page -> done
  * 2. Add authentication
  * 3. Create the analysis page
  * @returns

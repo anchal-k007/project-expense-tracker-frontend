@@ -39,3 +39,19 @@
 .expenses-table tr:nth-child(even) {
   background-color: rgb(242, 242, 242);
 }
+
+.display-total {
+  background-color: rgb(242, 242, 242);
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  margin: 1rem auto 0;
+  padding: 1rem 4rem;
+  color: navy;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  /* box-shadow: 1px 1px 8px -1px navy, -1px -1px 8px -1px navy ; */
+  border: 2px solid navy;
+  word-spacing: 1rem;
+}

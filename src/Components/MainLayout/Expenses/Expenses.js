@@ -3,6 +3,7 @@ import ExpenseTableHeader from "./ExpenseTableHeader";
 import styles from "./Expenses.module.css";
 
 const Expenses = ({ displayList }) => {
+  const total = displayList.reduce((total, expense) => total + parseInt(expense.amount), 0);
   return (
     <div className={styles["expense-layout"]}>
       <h1>{displayList.length === 0 ? "No Expenses To Show" : "Expenses"}</h1>
@@ -20,6 +21,11 @@ const Expenses = ({ displayList }) => {
             })}
           </tbody>
         </table>
+      )}
+      {displayList.length !== 0 && (
+        <div className={styles["display-total"]}>
+          Total = &#8377;{total}
+        </div>
       )}
     </div>
   );
