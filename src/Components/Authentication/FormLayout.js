@@ -13,13 +13,13 @@ const FormLayout = ({ handleIsUserLoggedIn }) => {
       <div className={styles["form-box"]}>
         <div className={styles["form-selection-box"]}>
           <button
-            className={`${activeForm == "login" ? styles.active : ""}`}
+            className={`${activeForm === "login" ? styles.active : ""}`}
             onClick={() => handleActiveForm("login")}
           >
             Login
           </button>
           <button
-            className={`${activeForm == "signup" ? styles.active : ""}`}
+            className={`${activeForm === "signup" ? styles.active : ""}`}
             onClick={() => handleActiveForm("signup")}
           >
             Signup
