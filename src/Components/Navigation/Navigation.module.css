@@ -38,4 +38,5 @@
 .main-nav ul li button:hover,
 .main-nav ul li button:active {
   color: navy;
+  cursor: pointer;
 }

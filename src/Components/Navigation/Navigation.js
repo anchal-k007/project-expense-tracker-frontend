@@ -1,19 +1,20 @@
 import styles from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = ({ isUserLoggedIn, handleIsUserLoggedIn }) => {
   return (
     <nav className={styles["main-nav"]}>
       <h1>Expense Tracker App</h1>
       <ul>
-        <li>
-          <button>Sign-Up</button>
-        </li>
-        <li>
-          <button>Login</button>
-        </li>
-        <li>
-          <button>Logout</button>
-        </li>
+        {isUserLoggedIn && (
+          <li>
+            <button>Welcome</button>
+          </li>
+        )}
+        {isUserLoggedIn && (
+          <li>
+            <button onClick={() => handleIsUserLoggedIn(false)}>Logout</button>
+          </li>
+        )}
       </ul>
     </nav>
   );

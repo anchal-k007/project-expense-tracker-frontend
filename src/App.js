@@ -11,31 +11,33 @@ const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const handleIsUserLoggedIn = (value) => {
     setIsUserLoggedIn(value);
-  }
+  };
   return (
     <>
-      <Navigation />
-      {!isUserLoggedIn &&
-        <FormLayout />
-      }
-      {isUserLoggedIn && 
-        <NotificationContextProvider >
-          <ExpensesContextProvider >
+      <Navigation
+        isUserLoggedIn={isUserLoggedIn}
+        handleIsUserLoggedIn={handleIsUserLoggedIn}
+      />
+      {!isUserLoggedIn && (
+        <FormLayout handleIsUserLoggedIn={handleIsUserLoggedIn} />
+      )}
+      {isUserLoggedIn && (
+        <NotificationContextProvider>
+          <ExpensesContextProvider>
             <MainLayout />
           </ExpensesContextProvider>
         </NotificationContextProvider>
-      }
+      )}
     </>
-  )
+  );
 };
 
 export default App;
 
-
 /**
- * TODO: 
+ * TODO:
  * 1. Prepare a login page
  * 2. Add authentication
  * 3. Create the analysis page
- * @returns 
- */ 
+ * @returns
+ */
