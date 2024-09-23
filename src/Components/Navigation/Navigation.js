@@ -3,14 +3,14 @@ import styles from "./Navigation.module.css";
 import userContext from "../../store/user_context";
 
 const Navigation = () => {
-  const { isUserLoggedIn, handleLogout } = useContext(userContext);
+  const { isUserLoggedIn, name, handleLogout } = useContext(userContext);
   return (
     <nav className={styles["main-nav"]}>
       <h1>Expense Tracker App</h1>
       <ul>
         {isUserLoggedIn && (
           <li>
-            <button>Welcome</button>
+            <button>Welcome {name.split(" ")[0]}</button>
           </li>
         )}
         {isUserLoggedIn && (
