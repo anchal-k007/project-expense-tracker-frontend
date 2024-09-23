@@ -62,7 +62,7 @@ const AuthForm = ({ activeForm }) => {
       body: JSON.stringify(authFormData),
     })
       .then((response) => {
-        if (response.status / 100 !== 2) {
+        if (Math.floor(response.status / 100) !== 2) {
           // handle error
           // throw new Error("Could not login");
           console.log(response.json());
