@@ -36,8 +36,31 @@ const AuthForm = ({ activeForm , handleIsUserLoggedIn }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(authFormData);
-    handleIsUserLoggedIn(true);
+    // console.log(authFormData);
+    // handleIsUserLoggedIn(true);
+    const url = `http://localhost:4000/api/v1/auth/${activeForm === "signup" ? "signup" : "login"}`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", 
+      },
+      body: JSON.stringify(authFormData),   
+    }).then(response => {
+      if(response.status / 100 !== 2) {
+        // handle error
+        throw new Error("Could not login");
+      } else {
+        return response.json();
+      }
+    }).then(data => {
+      console.log("received the following data");
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      handleIsUserLoggedIn(true);
+    }).catch(err => {
+      console.log("The following errors occurred");
+      console.log(err);
+    });
   };
 
   const handleOnReset = () => {
@@ -47,7 +70,7 @@ const AuthForm = ({ activeForm , handleIsUserLoggedIn }) => {
     });
   };
 
-  const handleFormError = () => {};
+  // const handleFormError = () => {};
 
   return (
     <div className={styles["form-content-container"]}>
