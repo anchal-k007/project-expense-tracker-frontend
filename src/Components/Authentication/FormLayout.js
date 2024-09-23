@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./FormLayout.module.css";
 import AuthForm from "./AuthForm";
 
-const FormLayout = ({ handleIsUserLoggedIn }) => {
+const FormLayout = () => {
   const [activeForm, setActiveForm] = useState("login");
   const handleActiveForm = (value) => {
     setActiveForm(value);
@@ -25,10 +25,7 @@ const FormLayout = ({ handleIsUserLoggedIn }) => {
             Signup
           </button>
         </div>
-        <AuthForm
-          activeForm={activeForm}
-          handleIsUserLoggedIn={handleIsUserLoggedIn}
-        />
+        <AuthForm activeForm={activeForm} />
       </div>
     </div>
   );

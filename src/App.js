@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Navigation from "./Components/Navigation/Navigation";
 import MainLayout from "./Components/MainLayout/MainLayout";
 import { NotificationContextProvider } from "./store/notification_context";
@@ -6,21 +6,14 @@ import { ExpensesContextProvider } from "./store/expenses_context";
 
 import "./App.css";
 import FormLayout from "./Components/Authentication/FormLayout";
+import userContext from "./store/user_context";
 
 const App = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const handleIsUserLoggedIn = (value) => {
-    setIsUserLoggedIn(value);
-  };
+  const { isUserLoggedIn } = useContext(userContext);
   return (
     <>
-      <Navigation
-        isUserLoggedIn={isUserLoggedIn}
-        handleIsUserLoggedIn={handleIsUserLoggedIn}
-      />
-      {!isUserLoggedIn && (
-        <FormLayout handleIsUserLoggedIn={handleIsUserLoggedIn} />
-      )}
+      <Navigation isUserLoggedIn={isUserLoggedIn} />
+      {!isUserLoggedIn && <FormLayout />}
       {isUserLoggedIn && (
         <NotificationContextProvider>
           <ExpensesContextProvider>

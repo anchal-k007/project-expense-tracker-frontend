@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import styles from "./Navigation.module.css";
+import userContext from "../../store/user_context";
 
-const Navigation = ({ isUserLoggedIn, handleIsUserLoggedIn }) => {
+const Navigation = () => {
+  const { isUserLoggedIn, handleLogout } = useContext(userContext);
   return (
     <nav className={styles["main-nav"]}>
       <h1>Expense Tracker App</h1>
@@ -12,7 +15,7 @@ const Navigation = ({ isUserLoggedIn, handleIsUserLoggedIn }) => {
         )}
         {isUserLoggedIn && (
           <li>
-            <button onClick={() => handleIsUserLoggedIn(false)}>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         )}
       </ul>

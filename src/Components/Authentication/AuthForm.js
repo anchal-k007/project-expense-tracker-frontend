@@ -1,5 +1,6 @@
-import { useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import styles from "./AuthForm.module.css";
+import userContext from "../../store/user_context";
 
 const authFormReducer = (authFormData, action) => {
   if (action.type === "edit") {
@@ -8,23 +9,36 @@ const authFormReducer = (authFormData, action) => {
       [action.field]: action.value,
     };
   } else if (action.type === "reset") {
-    return action.data;
+    return authFormInitialisationFn(action.activeForm);
   }
 };
 
-const AuthForm = ({ activeForm , handleIsUserLoggedIn }) => {
-  let initialFormData = {
+const authFormInitialisationFn = (activeForm) => {
+  if (activeForm === "login")
+    return {
+      email: "",
+      password: "",
+    };
+  return {
     email: "",
     password: "",
+    confirmPassword: "",
+    name: "",
   };
-  if (activeForm === "signup") {
-    initialFormData.confirmPassword = "";
-    initialFormData.name = "";
-  }
+};
+
+const AuthForm = ({ activeForm }) => {
   const [authFormData, authFormDispatchFn] = useReducer(
     authFormReducer,
-    initialFormData
+    activeForm,
+    authFormInitialisationFn
   );
+  const { handleLogin } = useContext(userContext);
+  
+  useEffect(() => {
+    // changing activeForm does not lead to a resetting of values, this piece of code makes sure that it does
+    authFormDispatchFn({ type: "reset", activeForm });
+  }, [activeForm]);
 
   const handleFormFieldChange = (event) => {
     authFormDispatchFn({
@@ -35,38 +49,40 @@ const AuthForm = ({ activeForm , handleIsUserLoggedIn }) => {
   };
 
   const handleFormSubmit = (event) => {
+    // TODO: add client side validation
     event.preventDefault();
-    // console.log(authFormData);
-    // handleIsUserLoggedIn(true);
-    const url = `http://localhost:4000/api/v1/auth/${activeForm === "signup" ? "signup" : "login"}`;
+    const url = `http://localhost:4000/api/v1/auth/${
+      activeForm === "signup" ? "signup" : "login"
+    }`;
     fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", 
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(authFormData),   
-    }).then(response => {
-      if(response.status / 100 !== 2) {
-        // handle error
-        throw new Error("Could not login");
-      } else {
-        return response.json();
-      }
-    }).then(data => {
-      console.log("received the following data");
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      handleIsUserLoggedIn(true);
-    }).catch(err => {
-      console.log("The following errors occurred");
-      console.log(err);
-    });
+      body: JSON.stringify(authFormData),
+    })
+      .then((response) => {
+        if (response.status / 100 !== 2) {
+          // handle error
+          // throw new Error("Could not login");
+          console.log(response.json());
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        handleLogin(data.token, data.user.name);
+      })
+      .catch((err) => {
+        console.log("The following errors occurred");
+        console.log(err);
+      });
   };
 
   const handleOnReset = () => {
     authFormDispatchFn({
       type: "reset",
-      data: initialFormData,
+      activeForm
     });
   };
 
