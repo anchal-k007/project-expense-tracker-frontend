@@ -5,6 +5,7 @@ const userContext = createContext({
   isUserLoggedIn: false,
   handleLogin: (token, name) => {},
   handleLogout: () => {},
+  getToken: () => {},
 });
 
 const UserContextProvider = ({ children }) => {
@@ -29,12 +30,22 @@ const UserContextProvider = ({ children }) => {
     });
   };
 
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    if(!token) {
+      handleLogout();
+      return;
+    }
+    return token;
+  }
+
   return (
     <userContext.Provider
       value={{
         ...user,
         handleLogin,
         handleLogout,
+        getToken,
       }}
     >
       {children}
