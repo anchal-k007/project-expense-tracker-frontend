@@ -20,7 +20,7 @@ const MainLayout = () => {
   const [pickedDate, setPickedDate] = useState(today);
   const { showNotification } = useContext(notificationContext);
 
-  const { expensesList: displayList, getExpensesList } =
+  const { getExpensesList } =
     useContext(expensesContext);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const MainLayout = () => {
     <div className={styles["main-layout"]}>
       {showNotification && <Notification />}
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
-      <Expenses displayList={displayList} />
+      <Expenses />
       <AddExpense pickedDate={pickedDate} />
     </div>
   );
