@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import DUMMY_EXPENSES from "../utils/dummyExpenses";
+import userContext from "./user_context";
 
 const expensesContext = createContext({
   expensesList: [
@@ -16,9 +17,11 @@ const expensesContext = createContext({
   handleAddExpenseItem: function () {},
   handleUpdateExpenseItem: function () {},
   handleDeleteExpenseItem: function () {},
+  getExpensesList: async function (pickedDate) {},
 });
 
 const ExpensesContextProvider = (props) => {
+  const { getToken } = useContext(userContext);
   const [expensesList, setExpensesList] = useState(DUMMY_EXPENSES);
 
   const getDisplayList = (pickedDate) => {
@@ -53,6 +56,25 @@ const ExpensesContextProvider = (props) => {
     });
   };
 
+  const getExpensesList = async (pickedDate) => {
+    const url = `http://localhost:4000/api/v1/expenses/get-expenses?date=${pickedDate.toISOString()}`;
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+      if (parseInt(response.status / 100) !== 2) {
+        console.log(await response.json());
+        throw new Error("An error occurred");
+      }
+      const data = await response.json();
+      setExpensesList(data.expenses);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <expensesContext.Provider
       value={{
@@ -61,6 +83,7 @@ const ExpensesContextProvider = (props) => {
         handleAddExpenseItem,
         handleUpdateExpenseItem,
         handleDeleteExpenseItem,
+        getExpensesList,
       }}
     >
       {props.children}

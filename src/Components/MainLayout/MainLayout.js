@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
@@ -20,7 +20,19 @@ const MainLayout = () => {
   const [pickedDate, setPickedDate] = useState(today);
   const { showNotification } = useContext(notificationContext);
 
-  const displayList = useContext(expensesContext).getDisplayList(pickedDate);
+  const { expensesList: displayList, getExpensesList } =
+    useContext(expensesContext);
+
+  useEffect(() => {
+    async function updateDisplayList() {
+      try {
+        await getExpensesList(pickedDate);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    updateDisplayList();
+  }, [pickedDate]);
 
   const updatePickedDate = (newDate) => {
     // Edge case when user selects clear option
