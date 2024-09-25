@@ -4,7 +4,7 @@ const notificationContext = createContext({
   showNotification: false,
   status: "",
   message: "",
-  handleNotification: () => {}
+  handleNotification: (status, message, timeInSeconds = 1.5) => {}
 });
 
 const NotificationContextProvider = (props) => {

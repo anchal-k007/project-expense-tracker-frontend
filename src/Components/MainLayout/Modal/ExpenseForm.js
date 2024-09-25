@@ -56,7 +56,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const errorPresentInForm = checkErrorsInForm(expenseFormData);
     if (errorPresentInForm) {
@@ -64,21 +64,33 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       return;
     }
     setFormError(false);
-    expenseFormData.date = getDateFromDateString(expenseFormData.date).toISOString();
-    if (expenseItemDetails) {
-      handleUpdateExpenseItem(expenseFormData, pickedDate);
-    } else {
-      handleAddExpenseItem(expenseFormData, pickedDate);
+    expenseFormData.date = getDateFromDateString(
+      expenseFormData.date
+    ).toISOString();
+
+    try {
+      if (expenseItemDetails) {
+        await handleUpdateExpenseItem(expenseFormData, pickedDate);
+      } else {
+        await handleAddExpenseItem(expenseFormData, pickedDate);
+      }
+      handleOnCancel();
+      const notificationMessage = `${
+        expenseItemDetails ? "Updated" : "Added"
+      } expense`;
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+        notificationMessage,
+        CONSTANTS.NOTIFICATION_TIME_SUCCESS
+      );
+    } catch (err) {
+      handleOnCancel();
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_ERROR,
+        err.message,
+        CONSTANTS.NOTIFICATION_TIME_ERROR,
+      );
     }
-    handleOnCancel();
-    const notificationMessage = `${
-      expenseItemDetails ? "Updated" : "Added"
-    } expense`;
-    handleNotification(
-      CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
-      notificationMessage,
-      CONSTANTS.NOTIFICATION_TIME_SUCCESS
-    );
   };
 
   return (

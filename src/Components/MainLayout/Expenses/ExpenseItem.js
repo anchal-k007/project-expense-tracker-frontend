@@ -34,7 +34,7 @@ const ExpenseItem = ({ expenseItem }) => {
     } catch (err) {
       handleNotification(
         CONSTANTS.NOTIFICATION_STATUS_ERROR,
-        "Deleted Expense",
+        err.message,
         CONSTANTS.NOTIFICATION_TIME_ERROR
       );
     }

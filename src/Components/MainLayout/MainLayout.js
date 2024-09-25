@@ -12,13 +12,14 @@ import notificationContext from "../../store/notification_context";
 
 import styles from "./MainLayout.module.css";
 import expensesContext from "../../store/expenses_context";
+import CONSTANTS from "../../utils/constants";
 
 const MainLayout = () => {
   // to get today's date at 0000 hours
   const today = getDateFromDateString(getDateStringFromDate(new Date()));
 
   const [pickedDate, setPickedDate] = useState(today);
-  const { showNotification } = useContext(notificationContext);
+  const { showNotification, handleNotification } = useContext(notificationContext);
 
   const { getExpensesList } =
     useContext(expensesContext);
@@ -28,7 +29,11 @@ const MainLayout = () => {
       try {
         await getExpensesList(pickedDate);
       } catch (err) {
-        console.log(err);
+        handleNotification(
+          CONSTANTS.NOTIFICATION_STATUS_ERROR,
+          err.message,
+          CONSTANTS.NOTIFICATION_TIME_ERROR
+        );
       }
     }
     updateDisplayList();

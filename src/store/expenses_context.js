@@ -36,13 +36,16 @@ const ExpensesContextProvider = (props) => {
         },
       });
       if (parseInt(response.status / 100) !== 2) {
-        console.log(await response.json());
-        throw new Error("An error occurred");
+        const data = await response.json();
+        console.log(data);
+        if(response.status === 500) 
+          throw new Error("An error occurred. Please try again later");
+        throw new Error(data.message);
       }
       const data = await response.json();
       setExpensesList(data.expenses);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 
@@ -64,14 +67,17 @@ const ExpensesContextProvider = (props) => {
       });
 
       if (parseInt(response.status / 100) !== 2) {
-        console.log(await response.json());
-        throw new Error("An error occurred");
+        const data = await response.json();
+        console.log(data);
+        if(response.status === 500) 
+          throw new Error("An error occurred. Please try again later");
+        throw new Error(data.message);
       }
 
       if (pickedDate.toISOString() === newExpenseItem.date)
         getExpensesList(pickedDate);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 
@@ -92,13 +98,16 @@ const ExpensesContextProvider = (props) => {
         body: JSON.stringify(updatedItem),
       });
       if (parseInt(response.status / 100) !== 2) {
-        console.log(await response.json());
-        throw new Error("An error occurred");
+        const data = await response.json();
+        console.log(data);
+        if(response.status === 500) 
+          throw new Error("An error occurred. Please try again later");
+        throw new Error(data.message);
       }
       // Update the list
       getExpensesList(pickedDate);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 
@@ -118,13 +127,15 @@ const ExpensesContextProvider = (props) => {
         },
       });
       if (parseInt(response.status / 100) !== 2) {
-        console.log(await response.json());
-        throw new Error("An error occurred");
+        const data = await response.json();
+        console.log(data);
+        if(response.status === 500) 
+          throw new Error("An error occurred. Please try again later");
+        throw new Error(data.message);
       }
       // Update the list
       getExpensesList(pickedDate);
     } catch (err) {
-      console.log(err);
       throw err;
     }
   };
