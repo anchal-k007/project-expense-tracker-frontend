@@ -20,7 +20,6 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
   // Else a new item will be added to the list
-  const pickedDateCopy = pickedDate;    // used to update the displayed list of expenses
   const dateString = getDateStringFromDate(pickedDate);
   const [expenseFormData, expenseFormDispatchFn] = useReducer(
     expenseFormReducerFn,
@@ -29,6 +28,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       amount: expenseItemDetails ? expenseItemDetails.amount : "",
       reason: expenseItemDetails ? expenseItemDetails.reason : "",
       paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
+      _id: expenseItemDetails ? expenseItemDetails._id : null,
     }
   );
   const [formError, setFormError] = useState(null);
@@ -66,13 +66,13 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     setFormError(false);
     expenseFormData.date = getDateFromDateString(expenseFormData.date).toISOString();
     if (expenseItemDetails) {
-      handleUpdateExpenseItem({
-        ...expenseFormData,
-        expenseId: expenseItemDetails.expenseId,
-      });
+      // It is possible that the date is changed, update the display list, in any case
+      // It is possible to optimise it, but i think it is unnecessary
+      handleUpdateExpenseItem(expenseFormData, pickedDate);
     } else {
       // If date of expense matches the currently displayed date, then we need to update the expenses list
-      if(pickedDateCopy.toISOString() === expenseFormData.date) {
+      // Hence pickedDate is sent along, so that list can be updated
+      if(pickedDate.toISOString() === expenseFormData.date) {
         handleAddExpenseItem(expenseFormData, pickedDate);
       } else {
         handleAddExpenseItem(expenseFormData);

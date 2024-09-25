@@ -34,13 +34,12 @@ const ExpensesContextProvider = (props) => {
         body: JSON.stringify(newExpenseItem),
       });
 
-      if (parseInt(response.status / 100) != 2) {
+      if (parseInt(response.status / 100) !== 2) {
         console.log(await response.json());
         throw new Error("An error occurred");
       }
 
       const data = await response.json();
-      console.log(data);
       if(pickedDate)
         getExpensesList(pickedDate);
     } catch (err) {
@@ -54,15 +53,26 @@ const ExpensesContextProvider = (props) => {
     );
   };
 
-  const handleUpdateExpenseItem = (updatedItem) => {
-    setExpensesList((prevExpensesList) => {
-      return prevExpensesList.map((expenseItem) => {
-        if (expenseItem.expenseId === updatedItem.expenseId) {
-          expenseItem = { ...updatedItem };
-        }
-        return expenseItem;
+  const handleUpdateExpenseItem = async (updatedItem, pickedDate = null) => {
+    try {
+      const url = `http://localhost:4000/api/v1/expenses/update/${updatedItem._id}`;
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(updatedItem),
       });
-    });
+      if(parseInt(response.status / 100) !== 2) {
+        console.log(await response.json());
+        throw new Error("An error occurred");
+      }
+      if(pickedDate)
+        getExpensesList(pickedDate);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   /**

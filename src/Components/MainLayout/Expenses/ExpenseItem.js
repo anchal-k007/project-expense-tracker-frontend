@@ -49,7 +49,8 @@ const ExpenseItem = ({ expenseItem }) => {
       {showModal && (
         <Modal
           handleHideModal={hideModal}
-          pickedDate={date}
+          // All dates of expenses are stored in ISO String format. Need to be converted back to date
+          pickedDate={new Date(date)}   
           expenseItemDetails={expenseItem}
         />
       )}
