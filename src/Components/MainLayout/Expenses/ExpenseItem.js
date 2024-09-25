@@ -21,13 +21,23 @@ const ExpenseItem = ({ expenseItem }) => {
     setShowModal(false);
   };
 
-  const deleteItem = () => {
-    handleDeleteExpenseItem(expenseId);
-    handleNotification(
-      CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
-      "Deleted Expense",
-      CONSTANTS.NOTIFICATION_TIME_SUCCESS
-    );
+  const deleteItem = async () => {
+    try {
+      // A Date datatype is expected as the second argument
+      // All dates are ISO strings, hence we need to convert it
+      await handleDeleteExpenseItem(expenseId, new Date(date));
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+        "Deleted Expense",
+        CONSTANTS.NOTIFICATION_TIME_SUCCESS
+      );
+    } catch (err) {
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_ERROR,
+        "Deleted Expense",
+        CONSTANTS.NOTIFICATION_TIME_ERROR
+      );
+    }
   };
 
   return (

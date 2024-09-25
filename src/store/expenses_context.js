@@ -12,9 +12,9 @@ const expensesContext = createContext({
       reason: "",
     },
   ],
-  handleAddExpenseItem: async function (newExpenseItem) {},
-  handleUpdateExpenseItem: function () {},
-  handleDeleteExpenseItem: function () {},
+  handleAddExpenseItem: async function (newExpenseItem, pickedDate = null) {},
+  handleUpdateExpenseItem: async function (updatedExpenseItem, pickedDate) {},
+  handleDeleteExpenseItem: async function (updatedExpenseItem, pickedDate) {},
   getExpensesList: async function (pickedDate) {},
 });
 
@@ -47,10 +47,26 @@ const ExpensesContextProvider = (props) => {
     }
   };
 
-  const handleDeleteExpenseItem = (itemId) => {
-    setExpensesList((prevExpensesList) =>
-      prevExpensesList.filter((expenseItem) => expenseItem.expenseId !== itemId)
-    );
+  const handleDeleteExpenseItem = async (expenseId, pickedDate) => {
+    try {
+      const url = `http://localhost:4000/api/v1/expenses/delete/${expenseId}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${getToken()}`
+        },
+      });
+      if(parseInt(response.status / 100) !== 2) {
+        console.log(await response.json());
+        throw new Error("An error occurred");
+      }
+      // Update the list
+      getExpensesList(pickedDate);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   };
 
   const handleUpdateExpenseItem = async (updatedItem, pickedDate) => {
