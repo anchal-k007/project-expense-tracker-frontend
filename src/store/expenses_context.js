@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-import DUMMY_EXPENSES from "../utils/dummyExpenses";
 import userContext from "./user_context";
 
 const expensesContext = createContext({
@@ -13,8 +12,7 @@ const expensesContext = createContext({
       reason: "",
     },
   ],
-  getDisplayList: function (pickedDate) {},
-  handleAddExpenseItem: function () {},
+  handleAddExpenseItem: async function (newExpenseItem) {},
   handleUpdateExpenseItem: function () {},
   handleDeleteExpenseItem: function () {},
   getExpensesList: async function (pickedDate) {},
@@ -24,19 +22,30 @@ const ExpensesContextProvider = (props) => {
   const { getToken } = useContext(userContext);
   const [expensesList, setExpensesList] = useState([]);
 
-  const getDisplayList = (pickedDate) => {
-    return expensesList.filter((expense) => {
-      return expense.date.getTime() === pickedDate.getTime();
-    });
-  };
+  const handleAddExpenseItem = async (newExpenseItem, pickedDate = null) => {
+    try {
+      const url = `http://localhost:4000/api/v1/expenses/new`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify(newExpenseItem),
+      });
 
-  const handleAddExpenseItem = (newExpenseItem) => {
-    newExpenseItem.expenseId = Date.now().toString();
-    setExpensesList((prevList) => {
-      const newExpensesList = [...prevList];
-      newExpensesList.push(newExpenseItem);
-      return newExpensesList;
-    });
+      if (parseInt(response.status / 100) != 2) {
+        console.log(await response.json());
+        throw new Error("An error occurred");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      if(pickedDate)
+        getExpensesList(pickedDate);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleDeleteExpenseItem = (itemId) => {
@@ -56,6 +65,10 @@ const ExpensesContextProvider = (props) => {
     });
   };
 
+  /**
+   * Date object expected. Gets converted to ISOString internally
+   * @param {Date} pickedDate 
+   */
   const getExpensesList = async (pickedDate) => {
     const url = `http://localhost:4000/api/v1/expenses/get-expenses?date=${pickedDate.toISOString()}`;
     try {
@@ -79,7 +92,6 @@ const ExpensesContextProvider = (props) => {
     <expensesContext.Provider
       value={{
         expensesList: expensesList,
-        getDisplayList,
         handleAddExpenseItem,
         handleUpdateExpenseItem,
         handleDeleteExpenseItem,

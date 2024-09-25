@@ -20,6 +20,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
   // Else a new item will be added to the list
+  const pickedDateCopy = pickedDate;    // used to update the displayed list of expenses
   const dateString = getDateStringFromDate(pickedDate);
   const [expenseFormData, expenseFormDispatchFn] = useReducer(
     expenseFormReducerFn,
@@ -63,14 +64,19 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       return;
     }
     setFormError(false);
-    expenseFormData.date = getDateFromDateString(expenseFormData.date);
+    expenseFormData.date = getDateFromDateString(expenseFormData.date).toISOString();
     if (expenseItemDetails) {
       handleUpdateExpenseItem({
         ...expenseFormData,
         expenseId: expenseItemDetails.expenseId,
       });
     } else {
-      handleAddExpenseItem(expenseFormData);
+      // If date of expense matches the currently displayed date, then we need to update the expenses list
+      if(pickedDateCopy.toISOString() === expenseFormData.date) {
+        handleAddExpenseItem(expenseFormData, pickedDate);
+      } else {
+        handleAddExpenseItem(expenseFormData);
+      }
     }
     handleOnCancel();
     const notificationMessage = `${
