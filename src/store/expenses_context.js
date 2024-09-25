@@ -53,7 +53,7 @@ const ExpensesContextProvider = (props) => {
     );
   };
 
-  const handleUpdateExpenseItem = async (updatedItem, pickedDate = null) => {
+  const handleUpdateExpenseItem = async (updatedItem, pickedDate) => {
     try {
       const url = `http://localhost:4000/api/v1/expenses/update/${updatedItem._id}`;
       const response = await fetch(url, {
@@ -68,8 +68,8 @@ const ExpensesContextProvider = (props) => {
         console.log(await response.json());
         throw new Error("An error occurred");
       }
-      if(pickedDate)
-        getExpensesList(pickedDate);
+      // Update the list
+      getExpensesList(pickedDate);
     } catch (err) {
       console.log(err);
     }
