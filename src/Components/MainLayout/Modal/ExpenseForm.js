@@ -66,17 +66,9 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     setFormError(false);
     expenseFormData.date = getDateFromDateString(expenseFormData.date).toISOString();
     if (expenseItemDetails) {
-      // It is possible that the date is changed, update the display list, in any case
-      // It is possible to optimise it, but i think it is unnecessary
       handleUpdateExpenseItem(expenseFormData, pickedDate);
     } else {
-      // If date of expense matches the currently displayed date, then we need to update the expenses list
-      // Hence pickedDate is sent along, so that list can be updated
-      if(pickedDate.toISOString() === expenseFormData.date) {
-        handleAddExpenseItem(expenseFormData, pickedDate);
-      } else {
-        handleAddExpenseItem(expenseFormData);
-      }
+      handleAddExpenseItem(expenseFormData, pickedDate);
     }
     handleOnCancel();
     const notificationMessage = `${
