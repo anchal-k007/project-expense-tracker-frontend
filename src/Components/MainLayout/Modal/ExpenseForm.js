@@ -16,6 +16,18 @@ const expenseFormReducerFn = (expenseFormdata, action) => {
   };
 };
 
+const checkErrorsInForm = (formData) => {
+  if (!formData.date) {
+    return "Please choose a date";
+  } else if (!formData.amount || formData.amount === "0") {
+    return "Please enter an amount";
+  } else if (+formData.amount < 0) {
+    return "Amount cannot be negative";
+  }
+  // no errors found
+  return false;
+};
+
 const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   // If the edit button on an expense item is clicked, then the component edits the item
   // This is handled by the fact that expenseItemDetails will be provided in that case
@@ -42,18 +54,6 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       fieldName: event.target.name,
       value: event.target.value,
     });
-  };
-
-  const checkErrorsInForm = (formData) => {
-    if (!formData.date) {
-      return "Please choose a date";
-    } else if (!formData.amount || formData.amount === "0") {
-      return "Please enter an amount";
-    } else if (+formData.amount < 0) {
-      return "Amount cannot be negative";
-    }
-    // no errors found
-    return false;
   };
 
   const handleFormSubmit = (event) => {

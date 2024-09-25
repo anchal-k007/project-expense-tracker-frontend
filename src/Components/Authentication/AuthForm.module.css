@@ -67,3 +67,18 @@
 .form-buttons button[type="submit"] {
   cursor: pointer;
 }
+
+.form-error {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  padding-top: 0;
+  color: white;
+  text-transform: capitalize;
+}
+
+.form-error p {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: red;
+  border: 1px solid red;
+}
