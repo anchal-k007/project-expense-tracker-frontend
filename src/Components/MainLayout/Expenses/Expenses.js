@@ -17,7 +17,7 @@ const Expenses = () => {
             {expensesList.map((expenseItem) => {
               return (
                 <ExpenseItem
-                  key={expenseItem.expenseId}
+                  key={expenseItem._id}
                   expenseItem={expenseItem}
                 />
               );

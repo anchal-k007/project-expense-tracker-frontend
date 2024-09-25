@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CONSTANTS from "../../../utils/constants";
 
 const ExpenseItem = ({ expenseItem }) => {
-  const { amount, paymentMode, reason, expenseId, date } = expenseItem;
+  const { amount, paymentMode, reason, _id: expenseId, date } = expenseItem;
   const { handleDeleteExpenseItem } = useContext(expensesContext);
   const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);

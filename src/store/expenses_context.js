@@ -22,7 +22,7 @@ const expensesContext = createContext({
 
 const ExpensesContextProvider = (props) => {
   const { getToken } = useContext(userContext);
-  const [expensesList, setExpensesList] = useState(DUMMY_EXPENSES);
+  const [expensesList, setExpensesList] = useState([]);
 
   const getDisplayList = (pickedDate) => {
     return expensesList.filter((expense) => {
