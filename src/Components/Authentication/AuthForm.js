@@ -33,7 +33,7 @@ const AuthForm = ({ activeForm }) => {
     activeForm,
     authFormInitialisationFn
   );
-  const { handleLogin } = useContext(userContext);
+  const { handleLogin , handleLogout } = useContext(userContext);
   const [authFormError, setAuthFormError] = useState(false);
 
   useEffect(() => {
@@ -79,6 +79,7 @@ const AuthForm = ({ activeForm }) => {
       setAuthFormError(false);
     } catch (err) {
       setAuthFormError("An Error Occurred. Please try again later");
+      handleLogout();
     }
   };
 
