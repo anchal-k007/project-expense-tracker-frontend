@@ -60,9 +60,9 @@ export default App;
 /**
  * TODO:
  * 1. Prepare a login page -> done
- * 2. Add authentication
- * 3. Create the analysis page
- * 4. Add client side validation on authentication
- * 5. Add error handling to authentication
+ * 2. Add authentication -> done
+ * 3. Create the analysis page -> to be done
+ * 4. Add client side validation on authentication -> done
+ * 5. Add error handling to authentication -> done
  * @returns
  */
