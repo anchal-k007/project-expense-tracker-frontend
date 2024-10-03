@@ -1,11 +1,8 @@
-import { useEffect, useRef } from "react";
-
 import styles from "./DatePicker.module.css";
 import { getDateStringFromDate } from "../../../utils/convertDateFormat";
 
 const DatePicker = (props) => {
   const { pickedDate, updatePickedDate } = props;
-  const datePickerRef = useRef();
   const dateString = getDateStringFromDate(pickedDate);
 
   const changePickedDate = (event) => {
@@ -19,7 +16,6 @@ const DatePicker = (props) => {
         type="date"
         name="date-picker"
         value={dateString}
-        ref={datePickerRef}
         onChange={changePickedDate}
       ></input>
     </div>
