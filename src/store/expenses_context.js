@@ -28,7 +28,11 @@ const ExpensesContextProvider = (props) => {
    * @param {Date} pickedDate
    */
   const getExpensesList = async (pickedDate) => {
-    const url = `http://localhost:4000/api/v1/expenses/get-expenses?date=${pickedDate.toISOString()}`;
+    const url = `${
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_BACKEND_DEV_URL
+        : process.env.REACT_APP_BACKEND_PROD_URL
+    }/api/v1/expenses/get-expenses?date=${pickedDate.toISOString()}`;
     try {
       const response = await fetch(url, {
         headers: {
@@ -38,7 +42,7 @@ const ExpensesContextProvider = (props) => {
       if (parseInt(response.status / 100) !== 2) {
         const data = await response.json();
         console.log(data);
-        if(response.status === 500) 
+        if (response.status === 500)
           throw new Error("An error occurred. Please try again later");
         throw new Error(data.message);
       }
@@ -56,7 +60,11 @@ const ExpensesContextProvider = (props) => {
    */
   const handleAddExpenseItem = async (newExpenseItem, pickedDate) => {
     try {
-      const url = `http://localhost:4000/api/v1/expenses/new`;
+      const url = `${
+        process.env.NODE_ENV === "development"
+          ? process.env.REACT_APP_BACKEND_DEV_URL
+          : process.env.REACT_APP_BACKEND_PROD_URL
+      }/api/v1/expenses/new`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -69,7 +77,7 @@ const ExpensesContextProvider = (props) => {
       if (parseInt(response.status / 100) !== 2) {
         const data = await response.json();
         console.log(data);
-        if(response.status === 500) 
+        if (response.status === 500)
           throw new Error("An error occurred. Please try again later");
         throw new Error(data.message);
       }
@@ -88,7 +96,11 @@ const ExpensesContextProvider = (props) => {
    */
   const handleUpdateExpenseItem = async (updatedItem, pickedDate) => {
     try {
-      const url = `http://localhost:4000/api/v1/expenses/update/${updatedItem._id}`;
+      const url = `${
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_BACKEND_DEV_URL
+        : process.env.REACT_APP_BACKEND_PROD_URL
+    }/api/v1/expenses/update/${updatedItem._id}`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -100,7 +112,7 @@ const ExpensesContextProvider = (props) => {
       if (parseInt(response.status / 100) !== 2) {
         const data = await response.json();
         console.log(data);
-        if(response.status === 500) 
+        if (response.status === 500)
           throw new Error("An error occurred. Please try again later");
         throw new Error(data.message);
       }
@@ -118,7 +130,11 @@ const ExpensesContextProvider = (props) => {
    */
   const handleDeleteExpenseItem = async (expenseId, pickedDate) => {
     try {
-      const url = `http://localhost:4000/api/v1/expenses/delete/${expenseId}`;
+      const url = `${
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_BACKEND_DEV_URL
+        : process.env.REACT_APP_BACKEND_PROD_URL
+    }/api/v1/expenses/delete/${expenseId}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -129,7 +145,7 @@ const ExpensesContextProvider = (props) => {
       if (parseInt(response.status / 100) !== 2) {
         const data = await response.json();
         console.log(data);
-        if(response.status === 500) 
+        if (response.status === 500)
           throw new Error("An error occurred. Please try again later");
         throw new Error(data.message);
       }

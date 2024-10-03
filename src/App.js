@@ -13,11 +13,18 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:4000/api/v1/auth/verify", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? process.env.REACT_APP_BACKEND_DEV_URL
+            : process.env.REACT_APP_BACKEND_PROD_URL
+        }/api/v1/auth/verify`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
         .then((response) => {
           if (response.status === 200) {
             return response.json();

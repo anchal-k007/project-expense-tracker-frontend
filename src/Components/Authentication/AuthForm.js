@@ -33,7 +33,7 @@ const AuthForm = ({ activeForm }) => {
     activeForm,
     authFormInitialisationFn
   );
-  const { handleLogin , handleLogout } = useContext(userContext);
+  const { handleLogin, handleLogout } = useContext(userContext);
   const [authFormError, setAuthFormError] = useState(false);
 
   useEffect(() => {
@@ -60,8 +60,13 @@ const AuthForm = ({ activeForm }) => {
       return;
     }
     setAuthFormError(false);
-    const url = `http://localhost:4000/api/v1/auth/${activeForm}`;
+    const url = `${
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_BACKEND_DEV_URL
+        : process.env.REACT_APP_BACKEND_PROD_URL
+    }/api/v1/auth/${activeForm}`;
     try {
+      console.log(url);
       const response = await fetch(url, {
         method: "POST",
         headers: {
