@@ -1,8 +1,7 @@
 import styles from "./DatePicker.module.css";
 import { getDateStringFromDate } from "../../../utils/convertDateFormat";
 
-const DatePicker = (props) => {
-  const { pickedDate, updatePickedDate } = props;
+const DatePicker = ({ pickedDate, updatePickedDate }) => {
   const dateString = getDateStringFromDate(pickedDate);
 
   const changePickedDate = (event) => {
