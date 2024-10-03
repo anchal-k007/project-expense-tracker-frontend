@@ -13,11 +13,18 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:4000/api/v1/auth/verify", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? process.env.REACT_APP_BACKEND_DEV_URL
+            : process.env.REACT_APP_BACKEND_PROD_URL
+        }/api/v1/auth/verify`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
         .then((response) => {
           if (response.status === 200) {
             return response.json();
@@ -53,9 +60,9 @@ export default App;
 /**
  * TODO:
  * 1. Prepare a login page -> done
- * 2. Add authentication
- * 3. Create the analysis page
- * 4. Add client side validation on authentication
- * 5. Add error handling to authentication
+ * 2. Add authentication -> done
+ * 3. Create the analysis page -> to be done
+ * 4. Add client side validation on authentication -> done
+ * 5. Add error handling to authentication -> done
  * @returns
  */
