@@ -13,6 +13,7 @@ const ExpenseItem = ({ expenseItem }) => {
   const { handleDeleteExpenseItem } = useContext(expensesContext);
   const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const displayModal = () => {
     setShowModal(true);
@@ -22,9 +23,16 @@ const ExpenseItem = ({ expenseItem }) => {
   };
 
   const deleteItem = async () => {
+    if(isLoading) return;
+    setIsLoading(true);
     try {
       // A Date datatype is expected as the second argument
       // All dates are ISO strings, hence we need to convert it
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+        "Deleting Expense...",
+        CONSTANTS.NOTIFICATION_TIME_ERROR
+      );
       await handleDeleteExpenseItem(expenseId, new Date(date));
       handleNotification(
         CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
@@ -38,6 +46,7 @@ const ExpenseItem = ({ expenseItem }) => {
         CONSTANTS.NOTIFICATION_TIME_ERROR
       );
     }
+    setIsLoading(false);
   };
 
   return (
@@ -49,7 +58,7 @@ const ExpenseItem = ({ expenseItem }) => {
         <button className={styles["edit-button"]} onClick={displayModal}>
           Edit
         </button>
-        <button className={styles["delete-button"]} onClick={deleteItem}>
+        <button className={styles["delete-button"]} onClick={deleteItem} disabled={isLoading}>
           <FontAwesomeIcon
             icon={faTrash}
             style={{ color: "white", fontSize: "1rem" }}
