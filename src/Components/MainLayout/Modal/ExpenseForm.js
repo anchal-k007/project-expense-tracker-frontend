@@ -44,6 +44,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     }
   );
   const [formError, setFormError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleNotification } = useContext(notificationContext);
   const { handleAddExpenseItem, handleUpdateExpenseItem } =
@@ -58,12 +59,14 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    if (isLoading) return;
     const errorPresentInForm = checkErrorsInForm(expenseFormData);
     if (errorPresentInForm) {
       setFormError(errorPresentInForm);
       return;
     }
     setFormError(false);
+    setIsLoading(true);
     const dataToSend = {
       ...expenseFormData,
       date: getDateFromDateString(
@@ -91,9 +94,11 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       handleNotification(
         CONSTANTS.NOTIFICATION_STATUS_ERROR,
         err.message,
-        CONSTANTS.NOTIFICATION_TIME_ERROR,
+        CONSTANTS.NOTIFICATION_TIME_ERROR
       );
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -145,10 +150,13 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
         </div>
         {formError && <div className={styles["form-error"]}>{formError}</div>}
         <div className={styles["form-buttons"]}>
-          <button type="reset" onClick={handleOnCancel}>
+          <button type="reset" onClick={handleOnCancel} disabled={isLoading}>
             Cancel
           </button>
-          <button type="submit">{expenseItemDetails ? "Update" : "Add"}</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading && "Sending..."}
+            {!isLoading && (expenseItemDetails ? "Update" : "Add")}
+          </button>
         </div>
       </form>
     </div>
