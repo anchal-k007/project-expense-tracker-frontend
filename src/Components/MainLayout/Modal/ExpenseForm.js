@@ -64,15 +64,18 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       return;
     }
     setFormError(false);
-    expenseFormData.date = getDateFromDateString(
-      expenseFormData.date
-    ).toISOString();
+    const dataToSend = {
+      ...expenseFormData,
+      date: getDateFromDateString(
+        expenseFormData.date
+      ).toISOString()
+    }
 
     try {
       if (expenseItemDetails) {
-        await handleUpdateExpenseItem(expenseFormData, pickedDate);
+        await handleUpdateExpenseItem(dataToSend, pickedDate);
       } else {
-        await handleAddExpenseItem(expenseFormData, pickedDate);
+        await handleAddExpenseItem(dataToSend, pickedDate);
       }
       handleOnCancel();
       const notificationMessage = `${
