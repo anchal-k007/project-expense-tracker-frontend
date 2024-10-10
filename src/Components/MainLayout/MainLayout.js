@@ -20,12 +20,14 @@ const MainLayout = () => {
 
   const [pickedDate, setPickedDate] = useState(today);
   const { showNotification, handleNotification } = useContext(notificationContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { getExpensesList } =
     useContext(expensesContext);
 
   useEffect(() => {
     async function updateDisplayList() {
+      setIsLoading(true);
       try {
         await getExpensesList(pickedDate);
       } catch (err) {
@@ -35,6 +37,7 @@ const MainLayout = () => {
           CONSTANTS.NOTIFICATION_TIME_ERROR
         );
       }
+      setIsLoading(false);
     }
     updateDisplayList();
   }, [pickedDate]);
@@ -52,7 +55,7 @@ const MainLayout = () => {
     <div className={styles["main-layout"]}>
       {showNotification && <Notification />}
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
-      <Expenses />
+      <Expenses isLoading={isLoading}/>
       <AddExpense pickedDate={pickedDate} />
     </div>
   );
