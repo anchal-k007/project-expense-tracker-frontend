@@ -91,6 +91,12 @@
   cursor: pointer;
 }
 
+.form-buttons button[type="submit"]:disabled,
+.form-buttons button[type="reset"]:disabled {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
 .form-error {
   background-color: red;
   border: 1px solid red;
