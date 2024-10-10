@@ -35,6 +35,7 @@ const AuthForm = ({ activeForm }) => {
   );
   const { handleLogin, handleLogout } = useContext(userContext);
   const [authFormError, setAuthFormError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // changing activeForm does not lead to a resetting of values, this piece of code makes sure that it does
@@ -52,6 +53,10 @@ const AuthForm = ({ activeForm }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    if(isLoading){
+      console.log("returning");
+      return;     // so that multiple requests are not sent 
+    } 
     if (
       activeForm === "signup" &&
       authFormData.password !== authFormData.confirmPassword
@@ -60,6 +65,7 @@ const AuthForm = ({ activeForm }) => {
       return;
     }
     setAuthFormError(false);
+    setIsLoading(true);
     const url = `${
       process.env.NODE_ENV === "development"
         ? process.env.REACT_APP_BACKEND_DEV_URL
@@ -78,6 +84,7 @@ const AuthForm = ({ activeForm }) => {
 
       if (parseInt(response.status / 100) !== 2) {
         setAuthFormError(data.message);
+        setIsLoading(false);
         return;
       }
       handleLogin(data.token, data.user.name);
@@ -86,9 +93,11 @@ const AuthForm = ({ activeForm }) => {
       setAuthFormError("An Error Occurred. Please try again later");
       handleLogout();
     }
+    setIsLoading(false);
   };
 
   const handleOnReset = () => {
+    if(isLoading) return;
     authFormDispatchFn({
       type: "reset",
       activeForm,
@@ -151,11 +160,12 @@ const AuthForm = ({ activeForm }) => {
           </div>
         )}
         <div className={styles["form-buttons"]}>
-          <button type="reset" onClick={handleOnReset}>
+          <button type="reset" onClick={handleOnReset} disabled={isLoading}>
             Reset
           </button>
-          <button type="submit">
-            {activeForm === "login" ? "Login" : "Signup"}
+          <button type="submit" disabled={isLoading}>
+            {isLoading && "Sending..."}
+            {!isLoading && (activeForm === "login" ? "Login" : "Signup")}
           </button>
         </div>
       </form>

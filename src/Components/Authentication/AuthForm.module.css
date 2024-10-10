@@ -62,10 +62,13 @@
   margin-left: 0.5rem;
   padding: 8px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
-.form-buttons button[type="submit"] {
-  cursor: pointer;
+.form-buttons button[type="submit"]:disabled,
+.form-buttons button[type="reset"]:disabled {
+  cursor: not-allowed;
+  text-decoration: none;
 }
 
 .form-error {
