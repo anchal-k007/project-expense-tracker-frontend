@@ -1,4 +1,4 @@
-import ResizableBox from "../ResizableBox";
+import ResizableBox from "./ResizableBox";
 import styles from "./DisplayBlock.module.css";
 
 const DisplayBlock = ({ title, data }) => {

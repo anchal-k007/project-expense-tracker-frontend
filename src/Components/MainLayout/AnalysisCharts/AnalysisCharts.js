@@ -1,6 +1,6 @@
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
-import ResizableBox from "./ResizableBox";
+import ResizableBox from "./ChartComponents/ResizableBox";
 import DisplayBlock from "./ChartComponents/DisplayBlock";
 const BarChart = () => {
   const labels = ["January", "February", "March", "April", "May", "June"];
