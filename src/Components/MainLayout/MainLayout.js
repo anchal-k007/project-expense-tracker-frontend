@@ -4,7 +4,7 @@ import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 import AddExpense from "./AddExpense/AddExpense";
 import Notification from "./Modal/Notification";
-import AnalysisCharts from "./AnalysisCharts/AnalysisCharts.tsx";
+import AnalysisCharts from "./AnalysisCharts/AnalysisCharts";
 import {
   getDateFromDateString,
   getDateStringFromDate,
