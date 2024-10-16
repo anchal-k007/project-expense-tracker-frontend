@@ -4,6 +4,7 @@ import DatePicker from "./DatePicker/DatePicker";
 import Expenses from "./Expenses/Expenses";
 import AddExpense from "./AddExpense/AddExpense";
 import Notification from "./Modal/Notification";
+import AnalysisCharts from "./AnalysisCharts/AnalysisCharts.tsx";
 import {
   getDateFromDateString,
   getDateStringFromDate,
@@ -57,6 +58,7 @@ const MainLayout = () => {
       <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
       <Expenses isLoading={isLoading}/>
       <AddExpense pickedDate={pickedDate} />
+      <AnalysisCharts />
     </div>
   );
 };
