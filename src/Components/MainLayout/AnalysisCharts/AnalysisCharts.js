@@ -1,8 +1,6 @@
 import { useState, useContext } from "react";
-import { Bar } from "react-chartjs-2";
-import ResizableBox from "./ChartComponents/ResizableBox";
-import DisplayBlock from "./ChartComponents/DisplayBlock";
 import DatePicker from "../DatePicker/DatePicker";
+import AllCharts from "./AllCharts";
 
 import notificationContext from "../../../store/notification_context";
 
@@ -80,32 +78,7 @@ const AnalysisCharts = () => {
       <div className={styles["submit-button"]}>
         <button onClick={handleAnalysisButtonClick}>Submit</button>
       </div>
-    </>
-  );
-  const labels = ["January", "February", "March", "April", "May", "June"];
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "My First dataset",
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgb(255, 99, 132)",
-        data: [0, 10, 5, 2, 20, 30, 45],
-      },
-      {
-        label: "My Second dataset",
-        backgroundColor: "rgb(0, 99, 132)",
-        borderColor: "rgb(255, 99, 132)",
-        data: [0, 10, 5, 2, 20, 30, 45],
-      },
-    ],
-  };
-  return (
-    <>
-      <ResizableBox>
-        <Bar data={data} />
-      </ResizableBox>
-      <DisplayBlock title="Test" data="100" />
+      <AllCharts title="Your Charts" />
     </>
   );
 };
