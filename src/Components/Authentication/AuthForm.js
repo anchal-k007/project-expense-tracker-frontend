@@ -54,7 +54,6 @@ const AuthForm = ({ activeForm }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     if(isLoading){
-      console.log("returning");
       return;     // so that multiple requests are not sent 
     } 
     if (
@@ -72,7 +71,6 @@ const AuthForm = ({ activeForm }) => {
         : process.env.REACT_APP_BACKEND_PROD_URL
     }/api/v1/auth/${activeForm}`;
     try {
-      console.log(url);
       const response = await fetch(url, {
         method: "POST",
         headers: {
