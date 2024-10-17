@@ -1,33 +1,39 @@
 /**
  * Converts a JS Date to string accepted by HTML date input.
- *  
+ *
  * Month in JS is indexed from 0, whereas HTML date input begins from 1.
- * 
+ *
  * HTML date input has a strict input type of yyyy-MM-dd
- * @param {Date} today 
+ * @param {Date} today
  * @returns {String}
  */
 export function getDateStringFromDate(today) {
+  if(today === null || today === undefined || today === "") 
+    return "";
   const year = today.getFullYear();
   let month = today.getMonth() + 1;
-  if(month < 10) {
+  if (month < 10) {
     month = "0" + month;
   }
   const date = today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
   const dateString = `${year}-${month}-${date}`;
-  return dateString
+  return dateString;
 }
 
 /**
  * Converts a HTML Date input string to JS Date object.
- *  
+ *
  * Month in JS is indexed from 0, whereas HTML date input begins from 1.
- * 
+ *
  * HTML date input has a strict input type of yyyy-MM-dd
- * @param {String} date 
+ * @param {String} date
  * @returns {Date}
  */
 export function getDateFromDateString(date) {
+  if(date === null || date === undefined || date === "") {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  }
   let [year, month, day] = date.split("-");
   month = +month; // convert string to number
   month -= 1; // adjust difference between date from datePicker and array indexing of months in js
