@@ -1,8 +1,47 @@
-import Chart from "chart.js/auto";
+import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import ResizableBox from "./ChartComponents/ResizableBox";
 import DisplayBlock from "./ChartComponents/DisplayBlock";
-const BarChart = () => {
+
+import { getDateFromDateString, getDateStringFromDate } from "../../../utils/convertDateFormat";
+import DatePicker from "../DatePicker/DatePicker";
+
+const AnalysisCharts = () => {
+  const [dateRange, setDateRange] = useState({
+    startDate: "",
+    endDate: getDateFromDateString(getDateStringFromDate(new Date()))
+  });
+
+  const handleUpdateStartDate = (pickedDate) => {
+    if (!pickedDate) {
+      pickedDate = getDateStringFromDate(new Date())
+    }
+    setDateRange((oldDateRange) => {
+      return {
+        ...oldDateRange,
+        startDate: getDateFromDateString(pickedDate)
+      }
+    });
+  }
+
+  const handleUpdateEndDate = (pickedDate) => {
+    if (!pickedDate) {
+      pickedDate = getDateStringFromDate(new Date())
+    }
+    setDateRange((oldDateRange) => {
+      return {
+        ...oldDateRange,
+        endDate: getDateFromDateString(pickedDate)
+      }
+    });
+  }
+
+  return (
+    <>
+      <DatePicker title="Start Date" pickedDate={dateRange.startDate} updatePickedDate={handleUpdateStartDate} />
+      <DatePicker title="End Date" pickedDate={dateRange.endDate} updatePickedDate={handleUpdateEndDate} />
+    </>
+  )
   const labels = ["January", "February", "March", "April", "May", "June"];
   const data = {
     labels: labels,
@@ -30,7 +69,8 @@ const BarChart = () => {
     </>
   );
 };
-export default BarChart;
+
+export default AnalysisCharts;
 
 // 1. Date Filter
 //    -> State to track both values
