@@ -31,3 +31,25 @@ const BarChart = () => {
   );
 };
 export default BarChart;
+
+// 1. Date Filter
+//    -> State to track both values
+//    -> Ensure non-null and correct values (start date before end date)
+//    -> Notification for incorrect values
+//    -> 
+// 2. Create a layout
+//    -> CSS to show all the graphs, possibly flex
+//    -> Fallback for no data, may need a pre-check call to check if there are documents present in that date
+//    -> 
+// 3. Make the required calls
+//    -> Total expense
+//    -> Highest Expense
+//    -> Highest total expense on date
+//    -> Line chart of expenses
+//    -> Bar chart of expenses by payment mode
+//    -> Expenses range of each mode (what are the minimum and maximum expenses performed by each payment mode) (optional)
+// 4. Add state management to display the analysis page
+// 5. For future
+//    -> Bar chart by tags
+//    -> 
+//    -> 
