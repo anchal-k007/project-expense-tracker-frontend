@@ -1,3 +1,4 @@
+import Chart from 'chart.js/auto';    // required 
 import { Bar } from "react-chartjs-2";
 import ResizableBox from "./ResizableBox";
 
