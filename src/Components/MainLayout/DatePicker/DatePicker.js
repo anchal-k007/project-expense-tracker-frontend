@@ -1,7 +1,7 @@
 import styles from "./DatePicker.module.css";
 import { getDateStringFromDate } from "../../../utils/convertDateFormat";
 
-const DatePicker = ({ pickedDate, updatePickedDate }) => {
+const DatePicker = ({ title, pickedDate, updatePickedDate }) => {
   const dateString = getDateStringFromDate(pickedDate);
 
   const changePickedDate = (event) => {
@@ -10,7 +10,7 @@ const DatePicker = ({ pickedDate, updatePickedDate }) => {
 
   return (
     <div className={styles["date-picker"]}>
-      <label htmlFor="date-picker">Choose A Date</label>
+      <label htmlFor="date-picker">{title}</label>
       <input
         type="date"
         name="date-picker"
