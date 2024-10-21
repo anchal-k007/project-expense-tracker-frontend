@@ -114,7 +114,7 @@ const AnalysisCharts = () => {
       <div className={styles["submit-button"]}>
         <button onClick={handleAnalysisButtonClick}>Submit</button>
       </div>
-      <AllCharts title="Your Charts" />
+      <AllCharts title="Your Charts" isLoading={isFetching}/>
     </>
   );
 };
