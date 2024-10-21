@@ -5,7 +5,7 @@ const TotalExpense = ({ expenses = [] }) => {
     (totalExpense, expense) => (totalExpense += parseInt(expense.amount)),
     0
   );
-  return <DisplayBlock title="Total Expense" data={totalExpense}/>
+  return <DisplayBlock title="Total Expense" data={`₹${totalExpense}`}/>
 };
 
 export default TotalExpense;
