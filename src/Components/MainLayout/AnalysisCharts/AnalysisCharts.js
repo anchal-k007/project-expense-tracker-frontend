@@ -67,7 +67,7 @@ const AnalysisCharts = () => {
     }
     setIsFetching(true);
     const queryParams = new URLSearchParams({
-      startDate: dateRange.startDate.toISOString(), 
+      startDate: dateRange.startDate.toISOString(),
       endDate: dateRange.endDate.toISOString(),
     });
     const url = `${
@@ -75,20 +75,27 @@ const AnalysisCharts = () => {
         ? process.env.REACT_APP_BACKEND_DEV_URL
         : process.env.REACT_APP_BACKEND_PROD_URL
     }/api/v1/query/all?${queryParams.toString()}`;
-    console.log(url);
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
-    if (parseInt(response.status / 100) !== 2) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
       const data = await response.json();
+      if (parseInt(response.status / 100) !== 2) {
+        console.log(data);
+        if (response.status === 500)
+          throw new Error("An error occurred. Please try again later");
+        throw new Error(data.message);
+      }
       console.log(data);
-      if (response.status === 500)
-        throw new Error("An error occurred. Please try again later");
-      throw new Error(data.message);
+    } catch (err) {
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_ERROR,
+        err.message,
+        CONSTANTS.NOTIFICATION_TIME_ERROR
+      );
     }
-    const data = await response.json();
     setIsFetching(false);
   };
 
