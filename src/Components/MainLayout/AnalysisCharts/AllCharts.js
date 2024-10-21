@@ -26,6 +26,16 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
   if (isLoading) displayText = "Fetching Data, This May Take A Moment...";
   if (!isLoading && fetchedData && fetchedData.length === 0)
     displayText = "No Data To Show";
+
+  const expensesGroupedByDate = {}; // maintain a map
+  expenses.forEach((expense) => {
+    if (
+      Object.keys(expensesGroupedByDate).findIndex((key) => key === expense.date) ===
+      -1
+    )
+      expensesGroupedByDate[expense.date] = [];
+    expensesGroupedByDate[expense.date].push(expense);
+  });
   
   return (
     <div className={styles["all-charts-container"]}>
@@ -34,7 +44,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
         <div className={styles["all-charts-flexbox"]}>
           <TotalExpense expenses={fetchedData} />
           <HighestExpense expenses={fetchedData} />
-          <HighestExpenseOnDate expenses={fetchedData} />
+          <HighestExpenseOnDate expensesGroupedByDate={expensesGroupedByDate} />
           <BarChart labels={labels} datasets={datasets} />
           <DisplayBlock title="Test" data="100" />
           <BarChart labels={labels} datasets={datasets} />

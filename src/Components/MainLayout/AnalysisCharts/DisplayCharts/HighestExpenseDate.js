@@ -1,19 +1,9 @@
 import DisplayBlock from "../ChartComponents/DisplayBlock";
 
-const HighestExpenseOnDate = ({ expenses = [] }) => {
-  const groupedExpense = {}; // maintain a map
-  expenses.forEach((expense) => {
-    if (
-      Object.keys(groupedExpense).findIndex((key) => key === expense.date) ===
-      -1
-    )
-      groupedExpense[expense.date] = [];
-    groupedExpense[expense.date].push(expense);
-  });
-
+const HighestExpenseOnDate = ({ expensesGroupedByDate = [] }) => {
   let highestExpense = 0,
     highestExpenseDate = "";
-  Object.entries(groupedExpense).forEach(([key, value]) => {
+  Object.entries(expensesGroupedByDate).forEach(([key, value]) => {
     let dayTotal = 0;
     for (const dayExpense of value) dayTotal += dayExpense.amount;
 
