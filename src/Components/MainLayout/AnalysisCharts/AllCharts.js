@@ -1,6 +1,7 @@
 import styles from "./AllCharts.module.css";
 import BarChart from "./ChartComponents/BarChart";
 import DisplayBlock from "./ChartComponents/DisplayBlock";
+import HighestExpense from "./DisplayCharts/HighestExpense";
 import TotalExpense from "./DisplayCharts/TotalExpense";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
@@ -31,6 +32,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
       {!isLoading && fetchedData && fetchedData.length !== 0 && (
         <div className={styles["all-charts-flexbox"]}>
           <TotalExpense expenses={fetchedData} />
+          <HighestExpense expenses={fetchedData} />
           <BarChart labels={labels} datasets={datasets} />
           <DisplayBlock title="Test" data="100" />
           <BarChart labels={labels} datasets={datasets} />
