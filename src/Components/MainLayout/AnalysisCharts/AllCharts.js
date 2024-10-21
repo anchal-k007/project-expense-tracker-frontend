@@ -1,6 +1,7 @@
 import styles from "./AllCharts.module.css";
 import BarChart from "./ChartComponents/BarChart";
 import DisplayBlock from "./ChartComponents/DisplayBlock";
+import TotalExpense from "./DisplayCharts/TotalExpense";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
 const datasets = [
@@ -29,6 +30,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
       <h1>{displayText}</h1>
       {!isLoading && fetchedData && fetchedData.length !== 0 && (
         <div className={styles["all-charts-flexbox"]}>
+          <TotalExpense expenses={fetchedData} />
           <BarChart labels={labels} datasets={datasets} />
           <DisplayBlock title="Test" data="100" />
           <BarChart labels={labels} datasets={datasets} />
