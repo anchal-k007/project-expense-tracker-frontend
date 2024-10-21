@@ -1,6 +1,7 @@
 import styles from "./AllCharts.module.css";
 import BarChart from "./ChartComponents/BarChart";
 import DisplayBlock from "./ChartComponents/DisplayBlock";
+import BarChartOfExepenses from "./DisplayCharts/BarChartOfExpenses";
 import HighestExpense from "./DisplayCharts/HighestExpense";
 import HighestExpenseOnDate from "./DisplayCharts/HighestExpenseDate";
 import TotalExpense from "./DisplayCharts/TotalExpense";
@@ -28,15 +29,17 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
     displayText = "No Data To Show";
 
   const expensesGroupedByDate = {}; // maintain a map
-  expenses.forEach((expense) => {
-    if (
-      Object.keys(expensesGroupedByDate).findIndex((key) => key === expense.date) ===
-      -1
-    )
-      expensesGroupedByDate[expense.date] = [];
-    expensesGroupedByDate[expense.date].push(expense);
-  });
-  
+  if (fetchedData && fetchedData.length !== 0)
+    fetchedData.forEach((expense) => {
+      if (
+        Object.keys(expensesGroupedByDate).findIndex(
+          (key) => key === expense.date
+        ) === -1
+      )
+        expensesGroupedByDate[expense.date] = [];
+      expensesGroupedByDate[expense.date].push(expense);
+    });
+
   return (
     <div className={styles["all-charts-container"]}>
       <h1>{displayText}</h1>
@@ -45,6 +48,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
           <TotalExpense expenses={fetchedData} />
           <HighestExpense expenses={fetchedData} />
           <HighestExpenseOnDate expensesGroupedByDate={expensesGroupedByDate} />
+          <BarChartOfExepenses expensesGroupedByDate={expensesGroupedByDate} />
           <BarChart labels={labels} datasets={datasets} />
           <DisplayBlock title="Test" data="100" />
           <BarChart labels={labels} datasets={datasets} />
