@@ -3,6 +3,7 @@ import DatePicker from "../DatePicker/DatePicker";
 import AllCharts from "./AllCharts";
 
 import notificationContext from "../../../store/notification_context";
+import userContext from "../../../store/user_context";
 
 import {
   getDateFromDateString,
@@ -18,7 +19,9 @@ const AnalysisCharts = () => {
     endDate: getDateFromDateString(getDateStringFromDate(new Date())),
   });
 
+  const [isFetching, setIsFetching] = useState(false);
   const { handleNotification } = useContext(notificationContext);
+  const { getToken } = useContext(userContext);
 
   const handleUpdateStartDate = (pickedDate) => {
     if (!pickedDate) {
@@ -44,7 +47,9 @@ const AnalysisCharts = () => {
     });
   };
 
-  const handleAnalysisButtonClick = (event) => {
+  const handleAnalysisButtonClick = async (event) => {
+    event.preventDefault();
+    if (isFetching) return;
     if (dateRange.startDate === "") {
       handleNotification(
         CONSTANTS.NOTIFICATION_STATUS_ERROR,
@@ -60,7 +65,27 @@ const AnalysisCharts = () => {
       );
       return;
     }
-    console.log("Submitted");
+    setIsFetching(true);
+    const url = `${
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_BACKEND_DEV_URL
+        : process.env.REACT_APP_BACKEND_PROD_URL
+    }/api/v1/query/all?startDate=${dateRange.startDate.toISOString()}&endDate=${dateRange.endDate.toISOString()}`;
+    console.log(url);
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    if (parseInt(response.status / 100) !== 2) {
+      const data = await response.json();
+      console.log(data);
+      if (response.status === 500)
+        throw new Error("An error occurred. Please try again later");
+      throw new Error(data.message);
+    }
+    const data = await response.json();
+    setIsFetching(false);
   };
 
   return (
