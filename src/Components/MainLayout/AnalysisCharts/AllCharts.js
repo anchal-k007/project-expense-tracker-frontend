@@ -5,6 +5,7 @@ import BarChartOfExepenses from "./DisplayCharts/BarChartOfExpenses";
 import HighestExpense from "./DisplayCharts/HighestExpense";
 import HighestExpenseOnDate from "./DisplayCharts/HighestExpenseDate";
 import TotalExpense from "./DisplayCharts/TotalExpense";
+import BarChartOfPaymentModes from "./DisplayCharts/BarChartOfPaymentModes";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
 const datasets = [
@@ -49,6 +50,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
           <HighestExpense expenses={fetchedData} />
           <HighestExpenseOnDate expensesGroupedByDate={expensesGroupedByDate} />
           <BarChartOfExepenses expensesGroupedByDate={expensesGroupedByDate} />
+          <BarChartOfPaymentModes expenses={fetchedData} />
           <BarChart labels={labels} datasets={datasets} />
           <DisplayBlock title="Test" data="100" />
           <BarChart labels={labels} datasets={datasets} />
