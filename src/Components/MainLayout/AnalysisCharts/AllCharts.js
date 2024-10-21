@@ -18,28 +18,35 @@ const datasets = [
   },
 ];
 
-const AllCharts = ({ isLoading = false, title }) => {
+const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
+  let displayText = title;
+  if (isLoading) displayText = "Fetching Data, This May Take A Moment...";
+  if (!isLoading && fetchedData && fetchedData.length === 0)
+    displayText = "No Data To Show";
+  
   return (
     <div className={styles["all-charts-container"]}>
-      <h1>{isLoading ? "Fetching Data, This May Take A Moment..." : title}</h1>
-      <div className={styles["all-charts-flexbox"]}>
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-        <BarChart labels={labels} datasets={datasets} />
-        <DisplayBlock title="Test" data="100" />
-      </div>
+      <h1>{displayText}</h1>
+      {!isLoading && fetchedData && fetchedData.length !== 0 && (
+        <div className={styles["all-charts-flexbox"]}>
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+          <BarChart labels={labels} datasets={datasets} />
+          <DisplayBlock title="Test" data="100" />
+        </div>
+      )}
     </div>
   );
 };

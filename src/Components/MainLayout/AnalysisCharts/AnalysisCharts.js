@@ -18,7 +18,7 @@ const AnalysisCharts = () => {
     startDate: "",
     endDate: getDateFromDateString(getDateStringFromDate(new Date())),
   });
-
+  const [fetchedData, setFetchedData] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const { handleNotification } = useContext(notificationContext);
   const { getToken } = useContext(userContext);
@@ -89,6 +89,7 @@ const AnalysisCharts = () => {
         throw new Error(data.message);
       }
       console.log(data);
+      setFetchedData(data.data);
     } catch (err) {
       handleNotification(
         CONSTANTS.NOTIFICATION_STATUS_ERROR,
@@ -114,7 +115,7 @@ const AnalysisCharts = () => {
       <div className={styles["submit-button"]}>
         <button onClick={handleAnalysisButtonClick}>Submit</button>
       </div>
-      <AllCharts title="Your Charts" isLoading={isFetching}/>
+      <AllCharts title="Your Charts" isLoading={isFetching} fetchedData={fetchedData}/>
     </>
   );
 };
