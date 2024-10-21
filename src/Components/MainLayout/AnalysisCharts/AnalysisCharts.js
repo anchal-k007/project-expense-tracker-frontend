@@ -66,11 +66,15 @@ const AnalysisCharts = () => {
       return;
     }
     setIsFetching(true);
+    const queryParams = new URLSearchParams({
+      startDate: dateRange.startDate.toISOString(), 
+      endDate: dateRange.endDate.toISOString(),
+    });
     const url = `${
       process.env.NODE_ENV === "development"
         ? process.env.REACT_APP_BACKEND_DEV_URL
         : process.env.REACT_APP_BACKEND_PROD_URL
-    }/api/v1/query/all?startDate=${dateRange.startDate.toISOString()}&endDate=${dateRange.endDate.toISOString()}`;
+    }/api/v1/query/all?${queryParams.toString()}`;
     console.log(url);
     const response = await fetch(url, {
       headers: {
