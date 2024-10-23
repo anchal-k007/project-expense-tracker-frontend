@@ -7,7 +7,6 @@ const BarChartOfPaymentModes = ({ expenses = [] }) => {
       paymentModeMap[expense.paymentMode] = 0;
     paymentModeMap[expense.paymentMode] += expense.amount;
   });
-  console.log(paymentModeMap);
   return (
     <BarChart
       labels={Object.keys(paymentModeMap)}

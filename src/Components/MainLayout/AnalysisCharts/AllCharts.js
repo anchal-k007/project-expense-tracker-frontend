@@ -1,11 +1,10 @@
-import styles from "./AllCharts.module.css";
-import BarChart from "./ChartComponents/BarChart";
-import DisplayBlock from "./ChartComponents/DisplayBlock";
-import BarChartOfExepenses from "./DisplayCharts/BarChartOfExpenses";
+import TotalExpense from "./DisplayCharts/TotalExpense";
 import HighestExpense from "./DisplayCharts/HighestExpense";
 import HighestExpenseOnDate from "./DisplayCharts/HighestExpenseDate";
-import TotalExpense from "./DisplayCharts/TotalExpense";
+import BarChartOfExepenses from "./DisplayCharts/BarChartOfExpenses";
 import BarChartOfPaymentModes from "./DisplayCharts/BarChartOfPaymentModes";
+import BarChartOfPaymentModesMinMax from "./DisplayCharts/BarChartOfPaymentModesMinMax";
+import styles from "./AllCharts.module.css";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
 const datasets = [
@@ -51,22 +50,7 @@ const AllCharts = ({ isLoading = false, title, fetchedData = [] }) => {
           <HighestExpenseOnDate expensesGroupedByDate={expensesGroupedByDate} />
           <BarChartOfExepenses expensesGroupedByDate={expensesGroupedByDate} />
           <BarChartOfPaymentModes expenses={fetchedData} />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
-          <BarChart labels={labels} datasets={datasets} />
-          <DisplayBlock title="Test" data="100" />
+          <BarChartOfPaymentModesMinMax expenses={fetchedData} />
         </div>
       )}
     </div>
