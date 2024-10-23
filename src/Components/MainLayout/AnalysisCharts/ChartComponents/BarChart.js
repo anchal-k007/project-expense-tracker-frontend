@@ -1,7 +1,7 @@
-import Chart from 'chart.js/auto';    // required 
+import Chart from "chart.js/auto"; // required
 import { Bar } from "react-chartjs-2";
 import ResizableBox from "./ResizableBox";
-import styles from "./BarChart.module.css"
+import styles from "./BarChart.module.css";
 
 const BarChart = ({
   title = "",
@@ -22,10 +22,15 @@ const BarChart = ({
     datasets: datasets,
   };
   return (
-    <ResizableBox height={height} width={width}>
+    <ResizableBox height={height} width={width} style={{
+      paddingBottom: "2rem",
+      paddingRight: "2rem",
+    }}>
       <div className={styles["bar-chart"]}>
         <h1 className={styles.title}>{title}</h1>
-        <Bar data={data} />
+        <Bar data={data} style={{
+          height: "400px"
+        }}/>
       </div>
     </ResizableBox>
   );
