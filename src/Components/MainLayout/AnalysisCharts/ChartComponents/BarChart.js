@@ -1,8 +1,10 @@
 import Chart from 'chart.js/auto';    // required 
 import { Bar } from "react-chartjs-2";
 import ResizableBox from "./ResizableBox";
+import styles from "./BarChart.module.css"
 
 const BarChart = ({
+  title = "",
   labels = [],
   datasets = [
     {
@@ -19,7 +21,10 @@ const BarChart = ({
   };
   return (
     <ResizableBox>
-      <Bar data={data} />
+      <div className={styles["bar-chart"]}>
+        <h1 className={styles.title}>{title}</h1>
+        <Bar data={data} />
+      </div>
     </ResizableBox>
   );
 };
