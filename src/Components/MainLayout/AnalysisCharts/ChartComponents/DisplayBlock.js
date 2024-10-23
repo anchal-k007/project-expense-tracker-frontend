@@ -1,12 +1,13 @@
 import ResizableBox from "./ResizableBox";
 import styles from "./DisplayBlock.module.css";
 
-const DisplayBlock = ({ title, data }) => {
+const DisplayBlock = ({ title, data, text }) => {
   return (
-    <ResizableBox width={250} height={125}>
+    <ResizableBox width={400} height={200}>
       <div className={styles["display-block"]}>
-        <h1>{title}</h1>
-        <span>{data}</span>
+        <h1 className={styles.title}>{title}</h1>
+        <span className={styles.data}>{data}</span>
+        <p className={styles.text}>{text}</p>
       </div>
     </ResizableBox>
   );
