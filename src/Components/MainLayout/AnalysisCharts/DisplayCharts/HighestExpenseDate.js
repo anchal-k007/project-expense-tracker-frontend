@@ -1,6 +1,6 @@
 import DisplayBlock from "../ChartComponents/DisplayBlock";
 
-const HighestExpenseOnDate = ({ expensesGroupedByDate = [] }) => {
+const HighestExpenseDate = ({ expensesGroupedByDate = [] }) => {
   let highestExpense = 0,
     highestExpenseDate = "";
   Object.entries(expensesGroupedByDate).forEach(([key, value]) => {
@@ -13,14 +13,21 @@ const HighestExpenseOnDate = ({ expensesGroupedByDate = [] }) => {
     }
   });
 
-  const displayText = `₹${highestExpense} on ${new Date(
-    highestExpenseDate
-  ).toLocaleDateString("en-in", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })}`;
-  return <DisplayBlock title="Highest Expense On Date" data={displayText} />;
+  const displayText = `On ${new Date(highestExpenseDate).toLocaleDateString(
+    "en-in",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  )}`;
+  return (
+    <DisplayBlock
+      title="Highest Expense Date"
+      data={`₹${highestExpense}`}
+      text={displayText}
+    />
+  );
 };
 
-export default HighestExpenseOnDate;
+export default HighestExpenseDate;
