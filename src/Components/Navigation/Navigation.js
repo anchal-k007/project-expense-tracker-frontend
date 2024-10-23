@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styles from "./Navigation.module.css";
 import userContext from "../../store/user_context";
 
-const Navigation = () => {
+const Navigation = ({ showPage, toggleShowPage }) => {
   const { isUserLoggedIn, name, handleLogout } = useContext(userContext);
   return (
     <nav className={styles["main-nav"]}>
@@ -11,6 +11,13 @@ const Navigation = () => {
         {isUserLoggedIn && (
           <li>
             <button>Welcome {name.split(" ")[0]}</button>
+          </li>
+        )}
+        {isUserLoggedIn && (
+          <li>
+            <button onClick={() => toggleShowPage(showPage)}>
+              {showPage === "main" ? "Analysis" : "Main"}
+            </button>
           </li>
         )}
         {isUserLoggedIn && (

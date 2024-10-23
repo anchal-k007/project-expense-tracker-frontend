@@ -88,7 +88,6 @@ const AnalysisCharts = () => {
           throw new Error("An error occurred. Please try again later");
         throw new Error(data.message);
       }
-      console.log(data);
       setFetchedData(data.data);
     } catch (err) {
       handleNotification(
@@ -101,7 +100,7 @@ const AnalysisCharts = () => {
   };
 
   return (
-    <>
+    <div className={styles["analysis-charts-layout"]}>
       <DatePicker
         title="Start Date"
         pickedDate={dateRange.startDate}
@@ -116,7 +115,7 @@ const AnalysisCharts = () => {
         <button onClick={handleAnalysisButtonClick}>Submit</button>
       </div>
       <AllCharts title="Your Charts" isLoading={isFetching} fetchedData={fetchedData}/>
-    </>
+    </div>
   );
 };
 

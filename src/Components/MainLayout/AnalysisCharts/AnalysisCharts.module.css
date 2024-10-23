@@ -1,3 +1,8 @@
+.analysis-charts-layout {
+  padding: 0 4rem;
+  position: relative;
+}
+
 .submit-button {
   width: fit-content;
   margin: 0 auto;
