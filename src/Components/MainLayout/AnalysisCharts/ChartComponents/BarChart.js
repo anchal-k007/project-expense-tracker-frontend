@@ -5,6 +5,8 @@ import styles from "./BarChart.module.css"
 
 const BarChart = ({
   title = "",
+  height = 250,
+  width = 500,
   labels = [],
   datasets = [
     {
@@ -20,7 +22,7 @@ const BarChart = ({
     datasets: datasets,
   };
   return (
-    <ResizableBox>
+    <ResizableBox height={height} width={width}>
       <div className={styles["bar-chart"]}>
         <h1 className={styles.title}>{title}</h1>
         <Bar data={data} />
