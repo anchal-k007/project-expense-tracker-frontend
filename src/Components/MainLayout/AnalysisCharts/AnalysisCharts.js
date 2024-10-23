@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import DatePicker from "../DatePicker/DatePicker";
 import AllCharts from "./AllCharts";
+import Notification from "../Modal/Notification";
 
 import notificationContext from "../../../store/notification_context";
 import userContext from "../../../store/user_context";
@@ -20,7 +21,7 @@ const AnalysisCharts = () => {
   });
   const [fetchedData, setFetchedData] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const { handleNotification } = useContext(notificationContext);
+  const { showNotification, handleNotification } = useContext(notificationContext);
   const { getToken } = useContext(userContext);
 
   const handleUpdateStartDate = (pickedDate) => {
@@ -101,6 +102,7 @@ const AnalysisCharts = () => {
 
   return (
     <div className={styles["analysis-charts-layout"]}>
+      {showNotification && <Notification />}
       <DatePicker
         title="Start Date"
         pickedDate={dateRange.startDate}
