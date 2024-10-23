@@ -9,6 +9,7 @@ const BarChartOfPaymentModes = ({ expenses = [] }) => {
   });
   return (
     <BarChart
+      title="Expenses By Payment Modes"
       labels={Object.keys(paymentModeMap)}
       datasets={[
         {

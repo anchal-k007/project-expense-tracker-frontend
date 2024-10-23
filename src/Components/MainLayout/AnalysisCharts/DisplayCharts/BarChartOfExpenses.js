@@ -21,6 +21,7 @@ const BarChartOfExepenses = ({ expensesGroupedByDate = [] }) => {
   }
   return (
     <BarChart
+      title="Expenses On Date"
       labels={dates}
       datasets={[
         {

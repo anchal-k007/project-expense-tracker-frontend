@@ -16,6 +16,7 @@ const BarChartOfPaymentModesMinMax = ({ expenses = [] }) => {
   const maxArray = Object.values(paymentModeMap).map(value => value.max);
   return (
     <BarChart
+      title="Min and Max Expense By Payment Mode"
       labels={Object.keys(paymentModeMap)}
       datasets={[
         {
