@@ -1,0 +1,26 @@
+.bar-chart .title {
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.bar-chart .data {
+  font-size: 2rem;
+  color: navy;
+  font-weight: 700;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.bar-chart .text {
+  font-size: 1rem;
+  color: black;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: 0;
+}

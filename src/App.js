@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navigation from "./Components/Navigation/Navigation";
 import MainLayout from "./Components/MainLayout/MainLayout";
 import { NotificationContextProvider } from "./store/notification_context";
@@ -7,9 +7,15 @@ import { ExpensesContextProvider } from "./store/expenses_context";
 import "./App.css";
 import FormLayout from "./Components/Authentication/FormLayout";
 import userContext from "./store/user_context";
+import AnalysisCharts from "./Components/MainLayout/AnalysisCharts/AnalysisCharts";
 
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
+  const [showPage, setShowPage] = useState("main");
+  const toggleShowPage = (currentPage) => {
+    if(currentPage === "main") setShowPage("analysis");
+    else setShowPage("main");
+  }
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -42,12 +48,12 @@ const App = () => {
   }, []);
   return (
     <>
-      <Navigation isUserLoggedIn={isUserLoggedIn} />
+      <Navigation showPage={showPage} toggleShowPage={toggleShowPage}/>
       {!isUserLoggedIn && <FormLayout />}
       {isUserLoggedIn && (
         <NotificationContextProvider>
           <ExpensesContextProvider>
-            <MainLayout />
+            {showPage === "main" ? <MainLayout /> : <AnalysisCharts />}
           </ExpensesContextProvider>
         </NotificationContextProvider>
       )}

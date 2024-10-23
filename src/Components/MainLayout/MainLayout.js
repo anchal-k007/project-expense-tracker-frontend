@@ -54,7 +54,7 @@ const MainLayout = () => {
   return (
     <div className={styles["main-layout"]}>
       {showNotification && <Notification />}
-      <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} />
+      <DatePicker pickedDate={pickedDate} updatePickedDate={updatePickedDate} title="Choose A Date" />
       <Expenses isLoading={isLoading}/>
       <AddExpense pickedDate={pickedDate} />
     </div>

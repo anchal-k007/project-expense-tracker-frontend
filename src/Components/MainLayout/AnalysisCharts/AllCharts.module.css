@@ -1,0 +1,15 @@
+.all-charts-container h1 {
+  font-size: 2rem;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.all-charts-flexbox {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
