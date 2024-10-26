@@ -10,11 +10,50 @@ import expensesContext from "../../../store/expenses_context";
 
 const expenseFormReducerFn = (expenseFormdata, action) => {
   const { fieldName, value } = action;
+  if (fieldName === "tags") {
+    let selectedTags = expenseFormdata.tags;
+    if (value === "") {
+      // Used when we want to clear the selections
+      // In the case when a single option is selected and we want to deselect it does not work
+      // Using CTRL + MouseClick on the already selected option gives an empty value. Thus we can use it to deselect
+      selectedTags = [];
+    } else if (selectedTags.findIndex((tag) => tag === value) !== -1) {
+      // Unselect if the tag clicked was selected previously
+      selectedTags = selectedTags.filter((tag) => tag !== value);
+    } else {
+      // else add it to the list
+      selectedTags.push(value);
+    }
+    console.log(selectedTags, "--selectedTags--");
+    return {
+      ...expenseFormdata,
+      tags: selectedTags,
+    };
+  }
   return {
     ...expenseFormdata,
     [fieldName]: value,
   };
 };
+
+const TAGS = [
+  {
+    _id: 1,
+    name: "Tag 1",
+  },
+  {
+    _id: 2,
+    name: "Tag 2",
+  },
+  {
+    _id: 3,
+    name: "Tag 3",
+  },
+  {
+    _id: 4,
+    name: "Tag 4",
+  },
+];
 
 const checkErrorsInForm = (formData) => {
   if (!formData.date) {
@@ -41,6 +80,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       reason: expenseItemDetails ? expenseItemDetails.reason : "",
       paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
       _id: expenseItemDetails ? expenseItemDetails._id : null,
+      tags: [],
     }
   );
   const [formError, setFormError] = useState(null);
@@ -51,6 +91,8 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     useContext(expensesContext);
 
   const handleFormFieldChange = (event) => {
+    console.log(event.target, "--event.target--");
+    console.log(event.target.value, "--event.target.value--");
     expenseFormDispatchFn({
       fieldName: event.target.name,
       value: event.target.value,
@@ -69,10 +111,8 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     setIsLoading(true);
     const dataToSend = {
       ...expenseFormData,
-      date: getDateFromDateString(
-        expenseFormData.date
-      ).toISOString()
-    }
+      date: getDateFromDateString(expenseFormData.date).toISOString(),
+    };
 
     try {
       if (expenseItemDetails) {
@@ -147,6 +187,35 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
               value={expenseFormData.reason}
             />
           </div>
+          {TAGS.length !== 0 && (
+            <div
+              className={`${styles["form-field"]} ${styles["form-field-flex"]}`}
+            >
+              <label htmlFor="tags">Tags</label>
+              <select
+                name="tags"
+                type="number"
+                onChange={handleFormFieldChange}
+                value={expenseFormData.tags}
+                multiple
+                defaultChecked={false}
+                size={1}
+                onFocus={(event) => {
+                  event.target.size = 3;
+                }}
+                onBlur={(event) => {
+                  event.target.size = 1;
+                }}
+              >
+                {/* {" "} */}
+                {TAGS.map((tag) => (
+                  <option key={tag._id} value={tag._id}>
+                    {tag.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
         {formError && <div className={styles["form-error"]}>{formError}</div>}
         <div className={styles["form-buttons"]}>

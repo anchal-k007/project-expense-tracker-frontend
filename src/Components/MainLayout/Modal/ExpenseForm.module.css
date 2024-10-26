@@ -59,6 +59,11 @@
   border-bottom: 3px solid black;
 }
 
+.form-field-flex {
+  display: flex;
+  align-items: stretch;
+}
+
 .form-buttons {
   text-align: right;
   margin: 1rem 0;
