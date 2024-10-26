@@ -6,6 +6,7 @@ const userContext = createContext({
   handleLogin: (token, name) => {},
   handleLogout: () => {},
   getToken: () => {},
+  getTags: () => {}
 });
 
 const UserContextProvider = ({ children }) => {
@@ -66,6 +67,12 @@ const UserContextProvider = ({ children }) => {
     localStorage.setItem("tags", JSON.stringify(filteredTags));
   };
 
+  const getTags = () => {
+    const tags = localStorage.getItem("tags");
+    if(!tags) return [];
+    return JSON.parse(tags);
+  }
+
   return (
     <userContext.Provider
       value={{
@@ -73,6 +80,7 @@ const UserContextProvider = ({ children }) => {
         handleLogin,
         handleLogout,
         getToken,
+        getTags,
       }}
     >
       {children}

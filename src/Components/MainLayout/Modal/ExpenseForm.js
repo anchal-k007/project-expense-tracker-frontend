@@ -7,6 +7,7 @@ import {
 } from "../../../utils/convertDateFormat";
 import CONSTANTS from "./../../../utils/constants";
 import expensesContext from "../../../store/expenses_context";
+import userContext from "../../../store/user_context";
 
 const expenseFormReducerFn = (expenseFormdata, action) => {
   const { fieldName, value } = action;
@@ -87,6 +88,9 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleNotification } = useContext(notificationContext);
+  const { getTags } = useContext(userContext);
+  const activeTags = getTags().filter(tag => tag.active);
+  console.log(activeTags, "--activeTags--");
   const { handleAddExpenseItem, handleUpdateExpenseItem } =
     useContext(expensesContext);
 
@@ -187,7 +191,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
               value={expenseFormData.reason}
             />
           </div>
-          {TAGS.length !== 0 && (
+          {activeTags.length !== 0 && (
             <div
               className={`${styles["form-field"]} ${styles["form-field-flex"]}`}
             >
@@ -208,7 +212,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
                 }}
               >
                 {/* {" "} */}
-                {TAGS.map((tag) => (
+                {activeTags.map((tag) => (
                   <option key={tag._id} value={tag._id}>
                     {tag.name}
                   </option>
