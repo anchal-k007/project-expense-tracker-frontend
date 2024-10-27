@@ -193,7 +193,18 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
                 }}
               >
                 {activeTags.map((tag) => (
-                  <option key={tag._id} value={tag._id}>
+                  <option
+                    key={tag._id}
+                    value={tag._id}
+                    selected={() => {   // mark selected tags during updation
+                      if (
+                        expenseItemDetails &&   // showing selected is only applicable for editing expense
+                        expenseFormData.tags.findIndex(tag._id) !== -1
+                      )
+                        return true;
+                      return false;
+                    }}
+                  >
                     {tag.name}
                   </option>
                 ))}
