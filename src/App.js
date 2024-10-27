@@ -1,18 +1,21 @@
 import { useContext, useEffect, useState } from "react";
-import Navigation from "./Components/Navigation/Navigation";
-import MainLayout from "./Components/MainLayout/MainLayout";
-import { NotificationContextProvider } from "./store/notification_context";
-import { ExpensesContextProvider } from "./store/expenses_context";
 
-import "./App.css";
+import Navigation from "./Components/Navigation/Navigation";
 import FormLayout from "./Components/Authentication/FormLayout";
-import userContext from "./store/user_context";
+import MainLayout from "./Components/MainLayout/MainLayout";
 import AnalysisCharts from "./Components/AnalysisCharts/AnalysisCharts";
 import Profile from "./Components/Profile/Profile";
 
+import { NotificationContextProvider } from "./store/notification_context";
+import { ExpensesContextProvider } from "./store/expenses_context";
+import userContext from "./store/user_context";
+
+import CONSTANTS from "./utils/constants";
+import "./App.css";
+
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
-  const [showPage, setShowPage] = useState("expenses");
+  const [showPage, setShowPage] = useState(CONSTANTS.SHOW_PAGE_EXPENSES);
   const toggleShowPage = (displayPage) => {
     if (showPage === displayPage) return;
     else setShowPage(displayPage);
@@ -54,9 +57,9 @@ const App = () => {
       {isUserLoggedIn && (
         <NotificationContextProvider>
           <ExpensesContextProvider>
-            {showPage === "expenses" ? (
+            {showPage === CONSTANTS.SHOW_PAGE_EXPENSES ? (
               <MainLayout />
-            ) : showPage === "analysis" ? (
+            ) : showPage === CONSTANTS.SHOW_PAGE_ANALYSIS ? (
               <AnalysisCharts />
             ) : (
               <Profile />
