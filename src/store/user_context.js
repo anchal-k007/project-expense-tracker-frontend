@@ -26,6 +26,7 @@ const UserContextProvider = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("tags");
     setUser({
       name: "",
       isUserLoggedIn: false,
