@@ -37,25 +37,6 @@ const expenseFormReducerFn = (expenseFormdata, action) => {
   };
 };
 
-const TAGS = [
-  {
-    _id: 1,
-    name: "Tag 1",
-  },
-  {
-    _id: 2,
-    name: "Tag 2",
-  },
-  {
-    _id: 3,
-    name: "Tag 3",
-  },
-  {
-    _id: 4,
-    name: "Tag 4",
-  },
-];
-
 const checkErrorsInForm = (formData) => {
   if (!formData.date) {
     return "Please choose a date";
@@ -81,7 +62,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       reason: expenseItemDetails ? expenseItemDetails.reason : "",
       paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
       _id: expenseItemDetails ? expenseItemDetails._id : null,
-      tags: [],
+      tags: expenseItemDetails ? expenseItemDetails.tags : [],
     }
   );
   const [formError, setFormError] = useState(null);
@@ -89,14 +70,12 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
 
   const { handleNotification } = useContext(notificationContext);
   const { getTags } = useContext(userContext);
-  const activeTags = getTags().filter(tag => tag.active);
-  console.log(activeTags, "--activeTags--");
   const { handleAddExpenseItem, handleUpdateExpenseItem } =
     useContext(expensesContext);
 
+  const activeTags = getTags().filter((tag) => tag.active);
+
   const handleFormFieldChange = (event) => {
-    console.log(event.target, "--event.target--");
-    console.log(event.target.value, "--event.target.value--");
     expenseFormDispatchFn({
       fieldName: event.target.name,
       value: event.target.value,
@@ -205,13 +184,14 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
                 defaultChecked={false}
                 size={1}
                 onFocus={(event) => {
-                  event.target.size = 3;
+                  if (activeTags.length < 3)
+                    event.target.length = activeTags.length;
+                  else event.target.size = 3;
                 }}
                 onBlur={(event) => {
                   event.target.size = 1;
                 }}
               >
-                {/* {" "} */}
                 {activeTags.map((tag) => (
                   <option key={tag._id} value={tag._id}>
                     {tag.name}
