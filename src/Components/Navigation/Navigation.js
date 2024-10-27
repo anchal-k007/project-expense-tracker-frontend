@@ -9,16 +9,21 @@ const Navigation = ({ showPage, toggleShowPage }) => {
       <h1>Expense Tracker App</h1>
       <ul>
         {isUserLoggedIn && (
-          <li>
-            <button>Welcome {name.split(" ")[0]}</button>
-          </li>
-        )}
-        {isUserLoggedIn && (
-          <li>
-            <button onClick={() => toggleShowPage(showPage)}>
-              {showPage === "main" ? "Analysis" : "Main"}
-            </button>
-          </li>
+          <ul>
+            <li>
+              <button onClick={() => toggleShowPage("profile")}>
+                Welcome {name.split(" ")[0]}
+              </button>
+            </li>
+            <li>
+              <button onClick={() => toggleShowPage("expenses")}>Expenses</button>
+            </li>
+            <li>
+              <button onClick={() => toggleShowPage("analysis")}>
+                Analysis
+              </button>
+            </li>
+          </ul>
         )}
         {isUserLoggedIn && (
           <li>

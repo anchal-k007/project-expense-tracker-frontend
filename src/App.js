@@ -8,14 +8,15 @@ import "./App.css";
 import FormLayout from "./Components/Authentication/FormLayout";
 import userContext from "./store/user_context";
 import AnalysisCharts from "./Components/AnalysisCharts/AnalysisCharts";
+import Profile from "./Components/Profile/Profile";
 
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
-  const [showPage, setShowPage] = useState("main");
-  const toggleShowPage = (currentPage) => {
-    if(currentPage === "main") setShowPage("analysis");
-    else setShowPage("main");
-  }
+  const [showPage, setShowPage] = useState("expenses");
+  const toggleShowPage = (displayPage) => {
+    if (showPage === displayPage) return;
+    else setShowPage(displayPage);
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -48,12 +49,18 @@ const App = () => {
   }, []);
   return (
     <>
-      <Navigation showPage={showPage} toggleShowPage={toggleShowPage}/>
+      <Navigation toggleShowPage={toggleShowPage} />
       {!isUserLoggedIn && <FormLayout />}
       {isUserLoggedIn && (
         <NotificationContextProvider>
           <ExpensesContextProvider>
-            {showPage === "main" ? <MainLayout /> : <AnalysisCharts />}
+            {showPage === "expenses" ? (
+              <MainLayout />
+            ) : showPage === "analysis" ? (
+              <AnalysisCharts />
+            ) : (
+              <Profile />
+            )}
           </ExpensesContextProvider>
         </NotificationContextProvider>
       )}
