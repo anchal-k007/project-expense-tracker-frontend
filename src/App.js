@@ -7,7 +7,7 @@ import { ExpensesContextProvider } from "./store/expenses_context";
 import "./App.css";
 import FormLayout from "./Components/Authentication/FormLayout";
 import userContext from "./store/user_context";
-import AnalysisCharts from "./Components/MainLayout/AnalysisCharts/AnalysisCharts";
+import AnalysisCharts from "./Components/AnalysisCharts/AnalysisCharts";
 
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
