@@ -15,7 +15,7 @@ import "./App.css";
 
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
-  const [showPage, setShowPage] = useState(CONSTANTS.SHOW_PAGE_EXPENSES);
+  const [showPage, setShowPage] = useState(CONSTANTS.SHOW_PAGE_PROFILE);
   const toggleShowPage = (displayPage) => {
     if (showPage === displayPage) return;
     else setShowPage(displayPage);
