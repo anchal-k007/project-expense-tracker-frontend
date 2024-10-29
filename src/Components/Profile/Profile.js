@@ -2,16 +2,19 @@ import { useContext } from "react";
 import Notification from "../MainLayout/Modal/Notification";
 
 import notificationContext from "../../store/notification_context";
-import styles from "./Profile.module.css";
 import UserProfile from "./Sections/UserProfile";
+import ResetPassword from "./Sections/ResetPassword";
+import TagManagement from "./Sections/TagManagement";
+
+import styles from "./Profile.module.css";
 
 const Profile = ({}) => {
   const { showNotification } = useContext(notificationContext);
   return (
     <div className={styles["profile-layout"]}>
       {showNotification && <Notification />}
-      <UserProfile />
-      <ResetPassword />
+      {/* <UserProfile /> */}
+      {/* <ResetPassword /> */}
       <TagManagement />
       {/* <PaymentModeManagement /> */}
     </div>

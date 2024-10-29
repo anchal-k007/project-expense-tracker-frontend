@@ -8,7 +8,7 @@ const userContext = createContext({
   getToken: () => {},
   tags: {
     getTags: () => {},
-    fetchUserTags: () => {},
+    fetchUserTags: async (token = "") => {},
   },
 });
 
