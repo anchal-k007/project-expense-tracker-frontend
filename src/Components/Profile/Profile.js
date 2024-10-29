@@ -1,9 +1,19 @@
+import { useContext } from "react";
+import Notification from "../MainLayout/Modal/Notification";
+
+import notificationContext from "../../store/notification_context";
 import styles from "./Profile.module.css";
+import UserProfile from "./Sections/UserProfile";
 
 const Profile = ({}) => {
+  const { showNotification } = useContext(notificationContext);
   return (
     <div className={styles["profile-layout"]}>
-      <h1>This is the profile page</h1>
+      {showNotification && <Notification />}
+      <UserProfile />
+      <ResetPassword />
+      <TagManagement />
+      {/* <PaymentModeManagement /> */}
     </div>
   );
 };
@@ -20,4 +30,6 @@ export default Profile;
  * 4. Payment Modes   -> Show all the payment modes, active and inactive
  *     (Future)       -> Edit name and active state
  *                    -> Update the localStorage state
+ * 
+ * Move Notification component from each page to App
  */
