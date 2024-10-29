@@ -6,7 +6,10 @@ const userContext = createContext({
   handleLogin: (token, name) => {},
   handleLogout: () => {},
   getToken: () => {},
-  getTags: () => {}
+  tags: {
+    getTags: () => {},
+    fetchUserTags: () => {},
+  },
 });
 
 const UserContextProvider = ({ children }) => {
@@ -81,7 +84,10 @@ const UserContextProvider = ({ children }) => {
         handleLogin,
         handleLogout,
         getToken,
-        getTags,
+        tags: {
+          getTags,
+          fetchUserTags,
+        }
       }}
     >
       {children}

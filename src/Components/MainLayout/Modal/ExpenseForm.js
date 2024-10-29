@@ -69,7 +69,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleNotification } = useContext(notificationContext);
-  const { getTags } = useContext(userContext);
+  const { tags: { getTags } } = useContext(userContext);
   const { handleAddExpenseItem, handleUpdateExpenseItem } =
     useContext(expensesContext);
 
