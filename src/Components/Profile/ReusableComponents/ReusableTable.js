@@ -2,7 +2,7 @@ import { useState } from "react";
 import TagModal from "../Modals/TagModal";
 import styles from "./ReusableTable.module.css";
 
-function CreateTagTableRow({ tag }) {
+function CreateTagTableRow({ tag, displayUpdatedTags }) {
   const [showModal, setShowModal] = useState(false);
 
   const hideModal = () => {
@@ -17,7 +17,9 @@ function CreateTagTableRow({ tag }) {
       <tr key={tag._id}>
         <td>{tag.name}</td>
         <td>
-          <span className={styles[`active--${tag.active ? "yes" : "no"}`]}>{tag.active ? "Yes" : "No"}</span>
+          <span className={styles[`active--${tag.active ? "yes" : "no"}`]}>
+            {tag.active ? "Yes" : "No"}
+          </span>
         </td>
         <td className={styles.options}>
           <button className={styles["edit-button"]} onClick={displayModal}>
@@ -25,7 +27,13 @@ function CreateTagTableRow({ tag }) {
           </button>
         </td>
       </tr>
-      {showModal && <TagModal handleHideModal={hideModal} tagDetails={tag} />}
+      {showModal && (
+        <TagModal
+          handleHideModal={hideModal}
+          tagDetails={tag}
+          displayUpdatedTags={displayUpdatedTags}
+        />
+      )}
     </>
   );
 }
@@ -66,6 +74,7 @@ const ReusableTable = ({
   fallbackText,
   headersArray,
   rowsArray,
+  rowStateUpdateFunction,
 }) => {
   return (
     <div className={styles["reusable-table-layout"]}>
@@ -81,7 +90,13 @@ const ReusableTable = ({
             </tr>
             {rowsArray.map((rowItem) => {
               if (tableContentType === "tags")
-                return <CreateTagTableRow tag={rowItem} key={rowItem._id} />;
+                return (
+                  <CreateTagTableRow
+                    tag={rowItem}
+                    key={rowItem._id}
+                    displayUpdatedTags={rowStateUpdateFunction}
+                  />
+                );
               // TODO: Implement when working with paymentModes
               else return <></>;
             })}

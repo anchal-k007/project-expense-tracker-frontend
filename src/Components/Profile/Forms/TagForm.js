@@ -49,7 +49,7 @@ async function handleTagFormSubmit(tag, getToken, update = false) {
   }
 }
 
-const TagForm = ({ handleOnCancel, tagDetails }) => {
+const TagForm = ({ handleOnCancel, tagDetails, displayUpdatedTags }) => {
   // If the edit button on an tag is clicked, then the component edits the item
   // This is handled by the fact that tagDetails will be provided in that case
   // Else a new tag will be created
@@ -96,6 +96,7 @@ const TagForm = ({ handleOnCancel, tagDetails }) => {
         notificationMessage,
         CONSTANTS.NOTIFICATION_TIME_SUCCESS
       );
+      await displayUpdatedTags();
     } catch (err) {
       handleOnCancel();
       handleNotification(

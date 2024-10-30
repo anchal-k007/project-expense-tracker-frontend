@@ -10,7 +10,7 @@ const ModalBackground = ({ handleHideModal, children }) => {
   );
 };
 
-const TagModal = ({ handleHideModal, tagDetails }) => {
+const TagModal = ({ handleHideModal, tagDetails, displayUpdatedTags }) => {
   const modalDomElement = document.getElementById("modal");
   return (
     <>
@@ -22,6 +22,7 @@ const TagModal = ({ handleHideModal, tagDetails }) => {
         <TagForm
           handleOnCancel={handleHideModal}
           tagDetails={tagDetails}
+          displayUpdatedTags={displayUpdatedTags}
         />,
         modalDomElement
       )}

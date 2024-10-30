@@ -13,6 +13,22 @@ const TagManagement = ({}) => {
   const [tags, setTags] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  const displayUpdatedTags = async () => {
+    console.log("function called");
+    setIsFetching(true);
+    try {
+      await fetchUserTags();
+    } catch (err) {
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_ERROR,
+        err.message,
+        CONSTANTS.NOTIFICATION_TIME_ERROR
+      );
+    }
+    setTags(getTags());
+    setIsFetching(false);
+  };
+
   const { handleNotification } = useContext(notificationContext);
   const {
     tags: { fetchUserTags, getTags },
@@ -20,18 +36,7 @@ const TagManagement = ({}) => {
 
   useEffect(() => {
     async function initialLoad() {
-      setIsFetching(true);
-      try {
-        await fetchUserTags();
-      } catch (err) {
-        handleNotification(
-          CONSTANTS.NOTIFICATION_STATUS_ERROR,
-          err.message,
-          CONSTANTS.NOTIFICATION_TIME_ERROR
-        );
-      }
-      setTags(getTags());
-      setIsFetching(false);
+      await displayUpdatedTags();
     }
     initialLoad();
   }, []);
@@ -45,11 +50,17 @@ const TagManagement = ({}) => {
         fallbackText={"No Tags Found"}
         headersArray={["Name", "Active", "Actions"]}
         rowsArray={tags}
+        rowStateUpdateFunction={displayUpdatedTags}
       />
       <div className={styles["create-tag-container"]}>
         <button onClick={() => setShowModal(true)}>Create New Tag</button>
       </div>
-      {showModal && <TagModal handleHideModal={() => setShowModal(false)} />}
+      {showModal && (
+        <TagModal
+          handleHideModal={() => setShowModal(false)}
+          displayUpdatedTags={displayUpdatedTags}
+        />
+      )}
     </ProfileSection>
   );
 };
