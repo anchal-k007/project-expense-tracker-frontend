@@ -14,7 +14,6 @@ const TagManagement = ({}) => {
   const [showModal, setShowModal] = useState(false);
 
   const displayUpdatedTags = async () => {
-    console.log("function called");
     setIsFetching(true);
     try {
       await fetchUserTags();

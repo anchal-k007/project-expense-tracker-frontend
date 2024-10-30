@@ -43,7 +43,6 @@ async function handleTagFormSubmit(tag, getToken, update = false) {
         throw new Error("An error occurred. Please try again later");
       throw new Error(data.message);
     }
-    console.log(data);
   } catch (err) {
     throw err;
   }
@@ -82,7 +81,6 @@ const TagForm = ({ handleOnCancel, tagDetails, displayUpdatedTags }) => {
     setFormError(false);
     setIsLoading(true);
 
-    console.log(tagFormData);
     try {
       if (tagDetails) {
         await handleTagFormSubmit(tagFormData, getToken, true);

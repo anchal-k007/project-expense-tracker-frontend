@@ -25,7 +25,6 @@ const expenseFormReducerFn = (expenseFormdata, action) => {
       // else add it to the list
       selectedTags.push(value);
     }
-    console.log(selectedTags, "--selectedTags--");
     return {
       ...expenseFormdata,
       tags: selectedTags,
@@ -62,7 +61,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
       reason: expenseItemDetails ? expenseItemDetails.reason : "",
       paymentMode: expenseItemDetails ? expenseItemDetails.paymentMode : "UPI",
       _id: expenseItemDetails ? expenseItemDetails._id : null,
-      tags: expenseItemDetails ? expenseItemDetails.tags : [],
+      tags: expenseItemDetails ? expenseItemDetails.tags.map(tag => tag._id) : [],
     }
   );
   const [formError, setFormError] = useState(null);
