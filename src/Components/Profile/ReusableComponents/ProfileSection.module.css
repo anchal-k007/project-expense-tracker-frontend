@@ -1,0 +1,22 @@
+.profile-section {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.profile-section hr {
+  height: 0.5rem;
+  background-color: rgb(200, 200, 200);
+  border: 1px rgb(200, 200, 200) solid;
+  border-radius: 1rem;
+}
+
+.profile-section-title {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}

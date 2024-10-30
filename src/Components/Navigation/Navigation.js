@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import styles from "./Navigation.module.css";
 import userContext from "../../store/user_context";
+import styles from "./Navigation.module.css";
+import CONSTANTS from "../../utils/constants";
 
 const Navigation = ({ showPage, toggleShowPage }) => {
   const { isUserLoggedIn, name, handleLogout } = useContext(userContext);
@@ -9,16 +10,29 @@ const Navigation = ({ showPage, toggleShowPage }) => {
       <h1>Expense Tracker App</h1>
       <ul>
         {isUserLoggedIn && (
-          <li>
-            <button>Welcome {name.split(" ")[0]}</button>
-          </li>
-        )}
-        {isUserLoggedIn && (
-          <li>
-            <button onClick={() => toggleShowPage(showPage)}>
-              {showPage === "main" ? "Analysis" : "Main"}
-            </button>
-          </li>
+          <ul>
+            <li>
+              <button
+                onClick={() => toggleShowPage(CONSTANTS.SHOW_PAGE_PROFILE)}
+              >
+                Welcome {name.split(" ")[0]}
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => toggleShowPage(CONSTANTS.SHOW_PAGE_EXPENSES)}
+              >
+                Expenses
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => toggleShowPage(CONSTANTS.SHOW_PAGE_ANALYSIS)}
+              >
+                Analysis
+              </button>
+            </li>
+          </ul>
         )}
         {isUserLoggedIn && (
           <li>

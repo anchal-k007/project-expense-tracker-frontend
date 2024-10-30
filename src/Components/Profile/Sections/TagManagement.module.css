@@ -1,0 +1,19 @@
+.create-tag-container {
+  text-align: center;
+}
+
+.create-tag-container button {
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: navy;
+  font-size: 1.25rem;
+  font-weight: 400;
+  padding: 0.25rem 1rem;
+}
+
+
+.create-tag-container button:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 5px cornflowerblue, -1px -1px 5px cornflowerblue
+}

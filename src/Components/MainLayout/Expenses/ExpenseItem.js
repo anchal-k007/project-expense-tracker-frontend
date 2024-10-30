@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CONSTANTS from "../../../utils/constants";
 
 const ExpenseItem = ({ expenseItem }) => {
-  const { amount, paymentMode, reason, _id: expenseId, date } = expenseItem;
+  const { amount, paymentMode, tags, reason, _id: expenseId, date } = expenseItem;
   const { handleDeleteExpenseItem } = useContext(expensesContext);
   const { handleNotification } = useContext(notificationContext);
   const [showModal, setShowModal] = useState(false);
@@ -53,6 +53,7 @@ const ExpenseItem = ({ expenseItem }) => {
     <tr className={styles["expense-item"]}>
       <td>{amount}</td>
       <td>{paymentMode}</td>
+      <td>{tags.map(tag => <span key={tag._id} className={styles["tag-name"]}>{tag.name}</span>)}</td>
       <td>{reason}</td>
       <td className={styles.options}>
         <button className={styles["edit-button"]} onClick={displayModal}>

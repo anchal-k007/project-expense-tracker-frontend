@@ -1,16 +1,16 @@
 import { useState, useContext } from "react";
-import DatePicker from "../DatePicker/DatePicker";
+import DatePicker from "../MainLayout/DatePicker/DatePicker";
 import AllCharts from "./AllCharts";
-import Notification from "../Modal/Notification";
+import Notification from "../MainLayout/Modal/Notification";
 
-import notificationContext from "../../../store/notification_context";
-import userContext from "../../../store/user_context";
+import notificationContext from "../../store/notification_context";
+import userContext from "../../store/user_context";
 
 import {
   getDateFromDateString,
   getDateStringFromDate,
-} from "../../../utils/convertDateFormat";
-import CONSTANTS from "../../../utils/constants";
+} from "../../utils/convertDateFormat";
+import CONSTANTS from "../../utils/constants";
 
 import styles from "./AnalysisCharts.module.css";
 

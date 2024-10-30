@@ -1,21 +1,25 @@
 import { useContext, useEffect, useState } from "react";
+
 import Navigation from "./Components/Navigation/Navigation";
+import FormLayout from "./Components/Authentication/FormLayout";
 import MainLayout from "./Components/MainLayout/MainLayout";
+import AnalysisCharts from "./Components/AnalysisCharts/AnalysisCharts";
+import Profile from "./Components/Profile/Profile";
+
 import { NotificationContextProvider } from "./store/notification_context";
 import { ExpensesContextProvider } from "./store/expenses_context";
-
-import "./App.css";
-import FormLayout from "./Components/Authentication/FormLayout";
 import userContext from "./store/user_context";
-import AnalysisCharts from "./Components/MainLayout/AnalysisCharts/AnalysisCharts";
+
+import CONSTANTS from "./utils/constants";
+import "./App.css";
 
 const App = () => {
   const { isUserLoggedIn, handleLogin } = useContext(userContext);
-  const [showPage, setShowPage] = useState("main");
-  const toggleShowPage = (currentPage) => {
-    if(currentPage === "main") setShowPage("analysis");
-    else setShowPage("main");
-  }
+  const [showPage, setShowPage] = useState(CONSTANTS.SHOW_PAGE_PROFILE);
+  const toggleShowPage = (displayPage) => {
+    if (showPage === displayPage) return;
+    else setShowPage(displayPage);
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -48,12 +52,18 @@ const App = () => {
   }, []);
   return (
     <>
-      <Navigation showPage={showPage} toggleShowPage={toggleShowPage}/>
+      <Navigation toggleShowPage={toggleShowPage} />
       {!isUserLoggedIn && <FormLayout />}
       {isUserLoggedIn && (
         <NotificationContextProvider>
           <ExpensesContextProvider>
-            {showPage === "main" ? <MainLayout /> : <AnalysisCharts />}
+            {showPage === CONSTANTS.SHOW_PAGE_EXPENSES ? (
+              <MainLayout />
+            ) : showPage === CONSTANTS.SHOW_PAGE_ANALYSIS ? (
+              <AnalysisCharts />
+            ) : (
+              <Profile />
+            )}
           </ExpensesContextProvider>
         </NotificationContextProvider>
       )}
