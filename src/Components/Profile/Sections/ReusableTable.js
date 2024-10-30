@@ -2,8 +2,8 @@ import { useContext } from "react";
 import styles from "./ReusableTable.module.css";
 
 const ReusableTable = ({
-  isLoading,
-  isLoadingText,
+  isFetching,
+  isFetchingText,
   fallbackText,
   headersArray,
   rowsArray,
@@ -13,15 +13,15 @@ const ReusableTable = ({
 }) => {
   return (
     <div className={styles["reusable-table-layout"]}>
-      {isLoading && <h1>{isLoadingText}</h1>}
-      {!isLoading && rowsArray.length !== 0 && (
+      {isFetching && <h1>{isFetchingText}</h1>}
+      {!isFetching && rowsArray.length !== 0 && (
         <table className={styles["reusable-table-table"]}>
           <tbody>
-            <th>
+            <tr>
               {headersArray.map((header) => (
-                <tr>{header}</tr>
+                <th>{header}</th>
               ))}
-            </th>
+            </tr>
             {rowsArray.map((rowItem) => {
               return <>{tableRowsCreatorFunction(rowItem)}</>;
             })}

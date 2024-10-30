@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import ProfileSection from "./ProfileSection";
+import ReusableTable from "./ReusableTable";
 import userContext from "../../../store/user_context";
 import notificationContext from "../../../store/notification_context";
 
@@ -33,26 +34,28 @@ const TagManagement = ({}) => {
     initialLoad();
   }, []);
 
+  function createTagTableRow(tag, editFunction) {
+    return (
+      <tr key={tag._id}>
+        <td>{tag.name}</td>
+        <td>{tag.active ? "Yes" : "No"}</td>
+        <td>
+          <button>Edit</button>
+        </td>
+      </tr>
+    );
+  }
+
   return (
     <ProfileSection title="Manage Tags">
-      <table>
-        <tbody>
-          <th>
-            <td>Name</td>
-            <td>Active</td>
-            <td>Actions</td>
-          </th>
-          {tags.map((tag) => {
-            return (
-              <tr>
-                <td>{tag.name}</td>
-                <td>{tag.active ? "Yes" : "No"}</td>
-                <td>Edit</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <ReusableTable
+        isFetching={isFetching}
+        isFetchingText={"Fetching Tags"}
+        fallbackText={"No Tags Found"}
+        headersArray={["Name", "Active", "Actions"]}
+        rowsArray={tags}
+        tableRowsCreatorFunction={createTagTableRow}
+      />
     </ProfileSection>
   );
 };
