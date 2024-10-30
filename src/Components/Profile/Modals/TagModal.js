@@ -10,7 +10,7 @@ const ModalBackground = ({ handleHideModal, children }) => {
   );
 };
 
-const TagModal = ({ handleHideModal, pickedDate, expenseItemDetails }) => {
+const TagModal = ({ handleHideModal, tagDetails }) => {
   const modalDomElement = document.getElementById("modal");
   return (
     <>

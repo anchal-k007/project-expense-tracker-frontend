@@ -4,7 +4,6 @@ import ReusableTable from "./ReusableTable";
 import userContext from "../../../store/user_context";
 import notificationContext from "../../../store/notification_context";
 
-import styles from "./TagManagement.module.css";
 import CONSTANTS from "../../../utils/constants";
 
 const TagManagement = ({}) => {
@@ -34,27 +33,15 @@ const TagManagement = ({}) => {
     initialLoad();
   }, []);
 
-  function createTagTableRow(tag, editFunction) {
-    return (
-      <tr key={tag._id}>
-        <td>{tag.name}</td>
-        <td>{tag.active ? "Yes" : "No"}</td>
-        <td>
-          <button>Edit</button>
-        </td>
-      </tr>
-    );
-  }
-
   return (
     <ProfileSection title="Manage Tags">
       <ReusableTable
+        tableContentType="tags"
         isFetching={isFetching}
         isFetchingText={"Fetching Tags"}
         fallbackText={"No Tags Found"}
         headersArray={["Name", "Active", "Actions"]}
         rowsArray={tags}
-        tableRowsCreatorFunction={createTagTableRow}
       />
     </ProfileSection>
   );
