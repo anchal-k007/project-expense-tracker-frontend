@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import ProfileSection from "./ProfileSection";
+import ProfileSection from "../ReusableComponents/ProfileSection";
 import userContext from "../../../store/user_context";
 
 import styles from "./UserProfile.module.css";
@@ -33,10 +33,10 @@ const UserProfile = ({}) => {
   }, []);
 
   return (
-   <ProfileSection title="Profile">
-    <div>Hello</div>
-   </ProfileSection> 
-  )
+    <ProfileSection title="Profile">
+      <div>Hello</div>
+    </ProfileSection>
+  );
 };
 
 export default UserProfile;

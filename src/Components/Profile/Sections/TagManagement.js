@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
-import ProfileSection from "./ProfileSection";
-import ReusableTable from "./ReusableTable";
+import ProfileSection from "../ReusableComponents/ProfileSection";
+import ReusableTable from "../ReusableComponents/ReusableTable";
 import userContext from "../../../store/user_context";
 import notificationContext from "../../../store/notification_context";
 
