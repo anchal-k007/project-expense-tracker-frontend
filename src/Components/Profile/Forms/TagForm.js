@@ -2,6 +2,7 @@ import { useState, useReducer, useContext } from "react";
 import notificationContext from "../../../store/notification_context";
 import styles from "./TagForm.module.css";
 import CONSTANTS from "./../../../utils/constants";
+import userContext from "../../../store/user_context";
 
 const tagFormReducerFn = (expenseFormdata, action) => {
   const { fieldName, value } = action;
@@ -14,12 +15,41 @@ const tagFormReducerFn = (expenseFormdata, action) => {
 const checkErrorsInForm = (formData) => {
   if (!formData.name) {
     return "Please name the tag";
-  } 
+  }
   // no errors found
   return false;
 };
 
-const ExpenseForm = ({ handleOnCancel, tagDetails }) => {
+async function handleTagFormSubmit(tag, getToken, update = false) {
+  let url = `${
+    process.env.NODE_ENV === "development"
+      ? process.env.REACT_APP_BACKEND_DEV_URL
+      : process.env.REACT_APP_BACKEND_PROD_URL
+  }/api/v1/user/tags`;
+  if (update) url = url.concat(`/${tag._id}`);
+  try {
+    const response = await fetch(url, {
+      method: update ? "PUT" : "POST",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tag),
+    });
+    const data = await response.json();
+    if (parseInt(response.status / 100) !== 2) {
+      console.log(data);
+      if (response.status === 500)
+        throw new Error("An error occurred. Please try again later");
+      throw new Error(data.message);
+    }
+    console.log(data);
+  } catch (err) {
+    throw err;
+  }
+}
+
+const TagForm = ({ handleOnCancel, tagDetails }) => {
   // If the edit button on an tag is clicked, then the component edits the item
   // This is handled by the fact that tagDetails will be provided in that case
   // Else a new tag will be created
@@ -31,6 +61,7 @@ const ExpenseForm = ({ handleOnCancel, tagDetails }) => {
   const [formError, setFormError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { getToken } = useContext(userContext);
   const { handleNotification } = useContext(notificationContext);
 
   const handleFormFieldChange = (event) => {
@@ -50,36 +81,31 @@ const ExpenseForm = ({ handleOnCancel, tagDetails }) => {
     }
     setFormError(false);
     setIsLoading(true);
-    
+
     console.log(tagFormData);
+    try {
+      if (tagDetails) {
+        await handleTagFormSubmit(tagFormData, getToken, true);
+      } else {
+        await handleTagFormSubmit(tagFormData, getToken);
+      }
+      handleOnCancel();
+      const notificationMessage = `Tag ${tagDetails ? "Updated" : "Created"}`;
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
+        notificationMessage,
+        CONSTANTS.NOTIFICATION_TIME_SUCCESS
+      );
+    } catch (err) {
+      handleOnCancel();
+      handleNotification(
+        CONSTANTS.NOTIFICATION_STATUS_ERROR,
+        err.message,
+        CONSTANTS.NOTIFICATION_TIME_ERROR
+      );
+    }
+
     setIsLoading(false);
-    return;
-
-    // try {
-    //   if (expenseItemDetails) {
-    //     await handleUpdateExpenseItem(dataToSend, pickedDate);
-    //   } else {
-    //     await handleAddExpenseItem(dataToSend, pickedDate);
-    //   }
-    //   handleOnCancel();
-    //   const notificationMessage = `${
-    //     expenseItemDetails ? "Updated" : "Added"
-    //   } expense`;
-    //   handleNotification(
-    //     CONSTANTS.NOTIFICATION_STATUS_SUCCESS,
-    //     notificationMessage,
-    //     CONSTANTS.NOTIFICATION_TIME_SUCCESS
-    //   );
-    // } catch (err) {
-    //   handleOnCancel();
-    //   handleNotification(
-    //     CONSTANTS.NOTIFICATION_STATUS_ERROR,
-    //     err.message,
-    //     CONSTANTS.NOTIFICATION_TIME_ERROR
-    //   );
-    // }
-
-    // setIsLoading(false);
   };
 
   return (
@@ -124,4 +150,4 @@ const ExpenseForm = ({ handleOnCancel, tagDetails }) => {
   );
 };
 
-export default ExpenseForm;
+export default TagForm;
