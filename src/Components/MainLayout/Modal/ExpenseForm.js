@@ -73,6 +73,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
     useContext(expensesContext);
 
   const activeTags = getTags().filter((tag) => tag.active);
+  const tagSelectDropdownSize = activeTags.length > 3 ? 3 : activeTags.length;
 
   const handleFormFieldChange = (event) => {
     expenseFormDispatchFn({
@@ -181,15 +182,7 @@ const ExpenseForm = ({ handleOnCancel, pickedDate, expenseItemDetails }) => {
                 value={expenseFormData.tags}
                 multiple
                 defaultChecked={false}
-                size={1}
-                onFocus={(event) => {
-                  if (activeTags.length < 3)
-                    event.target.length = activeTags.length;
-                  else event.target.size = 3;
-                }}
-                onBlur={(event) => {
-                  event.target.size = 1;
-                }}
+                size={tagSelectDropdownSize}
               >
                 {activeTags.map((tag) => (
                   <option
